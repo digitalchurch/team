@@ -1,0 +1,99 @@
+---
+title: Multisite Cron
+---
+
+# Setting up Cron on Multisite
+
+## Disable wp-cron and enable gp-cron for main site
+
+```bash
+gp site {site.url} -gpcron-on {minute.interval}
+```
+
+Example:
+```bash
+gp site digitalchurch.app -gpcron-on 60
+```
+
+## Setup Script & Master Cron Job
+
+1. Create a custom directory at `~/www/site.url/user-scripts/` for all custom scripts and a subdirectory for `/logs/`.
+
+![CleanShot 2023-05-01 at 12.13.37@2x.jpeg](https://res.craft.do/user/full/af4fc4e1-a141-bee2-39cb-9d3a593d9d4c/doc/DD63CD4F-52B5-4D04-8740-97B04F8EF895/91E9F27D-9941-4377-A433-A6C951E234CD_2/aDtVbXmKv7lRwAp4GA4Bh6xFACW9mnQvb7bICOV3PQoz/CleanShot%202023-05-01%20at%2012.13.372x.jpeg)
+
+2. In that directory, create a script that will loop through all sites called **multisite-cron-script.sh**. No editing of this file is necessary.
+
+```bash
+#!/bin/bash
+default_sleep=1
+multi_site="$1"
+sleep_for_seconds="${2:-$default_sleep}"
+sys_user=$(/usr/local/bin/gp conf read sys-user -site.env "${multi_site}" -q)
+for site in $(sudo su - "${sys_user}" -c "/usr/local/bin/wp site list --field=url --path=/var/www/${multi_site}/htdocs"); do
+ sudo su - "${sys_user}" -c "/usr/local/bin/wp cron event run --due-now --url=${site} --path=/var/www/${multi_site}/htdocs"
+ sleep ${sleep_for_seconds}
+done
+```
+
+3. On the command line, make that script executable by running the following command:
+
+```bash
+chmod +x /var/www/site.url/user-scripts/multisite-cron-script.sh
+```
+
+:::note
+The script accepts two args, for `{primary-domain:string}` and `{seconds:integer}`. You'll send the primary domain and the rhythm of the cronjob in seconds from the cronjob.
+:::
+
+4. Create a cronjob in the crontab (Use the **root** crontab, not the systemuser).
+   - Edit the crontab at root: `crontab -e`
+   - At the bottom, add the following (don't forget to swap out the site.url with the site domain):
+
+```shell
+*/10 * * * * /var/www/site.url/user-scripts/multisite-cron-script.sh site.url 2 1>> /var/www/site.url/user-scripts/logs/multisite-cron.log 2>> /var/www/site.url/user-scripts/logs/multisite-cron-errors.log
+```
+
+5. The cronjob will write to two log files. To watch these files in vscode log watcher, add these to the log watcher settings:
+
+```json
+{
+    "title": "Custom Multisite Cron",
+    "pattern": "/var/www/site.url/user-scripts/logs/multisite-cron.log"
+},
+{
+    "title": "Custom Multisite Cron Errors",
+    "pattern": "/var/www/site.url/user-scripts/logs/multisite-cron-errors.log"
+},
+```
+
+6. Make sure you test the cron jobs and know that the logs are outputting correctly. Once that is done, you can setup a monthly log deletion script below to save space:
+
+## Setup Log Deletion
+
+1. Add this **delete-logs-script.sh** file to the `user-scripts` directory:
+
+```bash
+#!/bin/bash
+rm /var/www/site.url/user-scripts/logs/multisite-cron.log /var/www/site.url/user-scripts/multisite-cron-errors.log
+```
+
+2. Make the file executable with this:
+
+```bash
+chmod +x /var/www/site.url/user-scripts/delete-logs-script.sh
+```
+
+3. Add a cronjob to run the removal script on the first of every month:
+
+```bash
+0 0 1 * * /var/www/site.url/user-scripts/delete-logs-script.sh > /dev/null 2>&1
+```
+
+----
+
+### Resources:
+
+[GridPane Community - A GridPane Community Forum](https://community.gridpane.com/t/cronjobs-of-subsites-in-multisite/1062/11)
+
+[Delete thousands of cron jobs](https://wordpress.stackexchange.com/questions/175878/delete-thousands-of-cron-jobs)
+

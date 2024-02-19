@@ -1,0 +1,77 @@
+---
+sidebar_position: 11
+---
+
+# iOS App Certificates
+
+:::note
+Note: Before generating certificates, make sure all Apple test devices are present in the developer account here: [https://developer.apple.com/account/resources/devices/list](https://developer.apple.com/account/resources/devices/list) ([more info](https://docs.apppresser.com/article/639-find-ios-udid-and-add-to-developer-account))
+:::
+
+To find the UDID, plug the device into a mac and view it in finder. Right click on the device name to copy the UDID.
+
+![CleanShot 2023-03-13 at 11.54.09@2x.jpeg](https://res.craft.do/user/full/af4fc4e1-a141-bee2-39cb-9d3a593d9d4c/doc/9A3F7B0F-2D48-4E3D-8F97-B96AF56DCD06/C9561F68-F4FE-4E2A-B463-D17F0D9387BF_2/49WgOSlF4rtpnWm15AzkvlIJjC7EUVYSSmod5oa8U3Yz/CleanShot%202023-03-13%20at%2011.54.092x.jpeg)
+
+Help: [https://docs.apppresser.com/article/298-ios-push-notifications](https://docs.apppresser.com/article/298-ios-push-notifications)
+
+You will generate the following files:
+
+1. **iOS Distribution .p12** .p12 file from *Keychain Access*.
+2. **iOS Production Certificate** .cer file from your developer account.
+3. **iOS Distribution SSL .p12** .p12 file from *Keychain Access*.
+
+## Register an App ID
+      1. Login to [developer.apple.com/account](https://developer.apple.com/account) and click on [Identifiers](https://developer.apple.com/account/resources/identifiers/list).
+      2. Click on the blue plus button to [Register a New Identifier](https://developer.apple.com/account/resources/identifiers/add/bundleId).
+      3. Go to **AppIDs > App** and create a new app ID for the app. Enter the client name in the description. For the bundle ID, use a reverse domain for the subdomain of the client site.
+
+         **Example:** If the subdomain is `cornerstone.digitalchurch.app`, we will use `app.digitalchurch.cornerstone` for the App ID.
+
+      1. Enable the capability for Push Notifications and click **Continue**.
+      2. Confirm the details and click **Register**.
+      3. Login to the [AppPresser Dashboard](https://myapppresser.com/digital-church/) and visit the Metadata tab for the app. Update the App Store Bundle ID there as well.
+
+## iOS Production SSL Certificate
+
+[iOS Push Notifications: Create Production SSL Certificate and .p12](https://www.youtube.com/watch?v=zu-xiXXLOA0)
+
+      1. Login to [developer.apple.com/account](https://developer.apple.com/account) and click on [Identifiers](https://developer.apple.com/account/resources/identifiers/list).
+      2. Click on the App ID and scroll down to the **Push Notifications** capability. Click on the **Configure** button.
+      3. Under the **Production SSL Certificate** settings, click on the **Create Certificate** button.
+      4. Upload your Certificate Signing Request file and click **Continue**.
+      5. **Download** your `aps.cer` file and move it into the client app certificates folder.
+      6. Rename the file to identify it as a production certificate for the spefic app. (Example: `cornerstone_prod.cer`)
+      7. Open the file in Keychain Access.
+      8. Select the new production certificate file and your private key in Keychain Access and export to a .p12 file. Use the same password we used to generate the development certificate. (Should be in 1Password)
+      9. Go to the [AppPresser Dashboard](https://myapppresser.com/digital-church/) and visit the **Features > Push Notifications** tab for the app.
+      10. Upload the .p12 file to AppPresser and enter the password there.
+
+## iOS Ad Hoc Provisioning Profile
+
+[iOS Push Notifications: Create provisioning profile](https://www.youtube.com/watch?v=peJUY-jgZ74)
+
+      1. Login to [developer.apple.com/account](https://developer.apple.com/account) and click on [Profiles](https://developer.apple.com/account/resources/profiles/list).
+      2. Click on the blue plus button to [Register a New Provisioning Profile](https://developer.apple.com/account/resources/profiles/add).
+      3. Under **Distribution**, select **Ad Hoc.**
+      4. Choose the App ID for the app we are building and click **Continue**.
+      5. Choose the current Distribution Certificate and click **Continue**. (This MUST be the same certificate we used on previous files for this app.)
+      6. Select the devices you wish to test with and click **Continue**.
+      7. Name the Provisioning Profile using the Client App Name. (Example: Cornerstone Ad Hoc) and click **Generate.**
+      8. **Download** the new ad hoc .mobileprovision file and move it into the client app certificates folder.
+      9. Login to the [AppPresser Dashboard](https://myapppresser.com/digital-church/) and visit the **Features > Push Notifications** tab for the app. Upload the ad hoc provisioning profile there.
+      10. Once you've completed the setup for the push notifications, you should see an AppPresser notifications key at the bottom of the Features > Push Notifications page in the AppPresser Dashboard. Copy that key and save it in the Wordpress dashboard for the client website. (Example: [https://cornerstone.digitalchurch.app/wp-admin/options.php?page=apppresser_settings&tab=tab-appp-notifications](https://cornerstone.digitalchurch.app/wp-admin/options.php?page=apppresser_settings&tab=tab-appp-notifications))
+      11. Enter the App Customizer and **Rebuild a Preview** of the app.
+
+## iOS Production Provisioning Profile
+
+[iOS Push Notifications: Create provisioning profile](https://www.youtube.com/watch?v=peJUY-jgZ74)
+
+      1. Login to [developer.apple.com/account](https://developer.apple.com/account) and click on [Profiles](https://developer.apple.com/account/resources/profiles/list).
+      2. Click on the blue plus button to [Register a New Provisioning Profile](https://developer.apple.com/account/resources/profiles/add).
+      3. Under **Distribution**, select **App Store**
+      4. Choose the App ID for the app we are building and click **Continue**.
+      5. Choose the current Distribution Certificate and click **Continue**. (This MUST be the same certificate we used on previous files for this app.)
+      6. Select the devices you wish to test with and click **Continue**.
+      7. Name the Provisioning Profile using the Client App Name. (Example: Cornerstone Production) and click **Generate.**
+      8. **Download** the new production .mobileprovision file and move it into the client app certificates folder.
+      9. Login to the [AppPresser Dashboard](https://myapppresser.com/digital-church/) and visit the **Features > Push Notifications** tab for the app. Upload the production provisioning profile there WHEN YOU ARE READY TO ENABLE LIVE PUSH NOTIFICATIONS. (Continue to use the Ad Hoc certificte until then.)

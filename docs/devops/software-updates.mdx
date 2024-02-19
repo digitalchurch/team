@@ -1,0 +1,70 @@
+---
+title: Software Updates
+---
+
+# Updating WordPress Core, Themes, and Plugins
+
+When updating software on our platform, we follow a strict procedure and document what updates are being made. This is the procedure.
+
+## Document the Process
+
+Create a Blog Post on our team site at https://digitalchurch.team to document the update process as you go.
+
+## Generate a Report of Available Updates
+
+Enter the CLI via terminal on the server you wish to update and navigate to the site directory. Generate a report using the CLI command below, and paste it into the team blog post documentation.
+
+```bash
+gp wp digitalchurch.app plugin update --all --dry-run
+```
+
+```bash
+gp wp digitalchurch.app theme update --all --dry-run
+```
+
+```bash
+gp wp digitalchurch.app core version --extra
+```
+
+```bash
+gp wp digitalchurch.app core check-update
+```
+
+Paste each report into the team blog post, but change the formatting slightly. Remove the top and bottom lines of `+----------------+` and replace the line just under the heading with the MDX table syntax like this:
+
+```bash
+| :- | :- | :- | :- |
+```
+
+That should make the tables look great on our team blog.
+
+
+## Run Updates
+
+```bash
+gp wp digitalchurch.app plugin update --all
+```
+
+```bash
+gp wp digitalchurch.app theme update --all
+```
+
+```bash
+gp wp digitalchurch.app core update
+```
+
+## Clear the Caches
+
+```bash
+gp wp digitalchurch.app beaver clearcache
+```
+
+```bash
+gp wp digitalchurch.app beaver clearcache
+```
+
+## Testing
+
+If you completed a core update, you'll need to run through a database upgrade for the network here: https://digitalchurch.app/wp-admin/network/upgrade.php
+
+Once you've run all the updates and cleared all the caches, it's time to do some tests to make sure nothing broke in the process. Refer to the document: [Post Update Testing](/)

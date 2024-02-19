@@ -1,0 +1,33 @@
+---
+title: GridPane settings
+---
+
+# GridPane Server & Website settings
+
+This document explains each GridPane setting we use for servers and websites.
+
+## Server
+
+Server settings...
+
+## Multisite Configurations
+
+### settings
+
+### Git
+
+### Caching
+
+### Security
+
+#### Additional Measures
+
+[Additional Measures](./img/gridpane-security-additional-measures.jpg)
+
+- Disable XMLRPC [true]
+
+XMLRPC is a old form of communicating with WordPress that has been replaced by the REST API. It is no longer in use, but proses a security risk. Setting this to true blocks XMLRPC from all sites on the network, which also reduces server load from bots looking to exploit it.
+
+- Block wp-content php [true]
+
+This prevents PHP from being run inside the wp-content folder.

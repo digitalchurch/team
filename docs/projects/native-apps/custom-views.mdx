@@ -1,0 +1,64 @@
+---
+sidebar_position: 5
+---
+
+# Building Custom App Views
+
+## Home
+
+```html
+<div class="cover"><h1>Welcome!</h1></div>
+<ap-list card="true" infiniteScroll="true" route="https://{site.url}/wp-json/wp/v2/connections?orderby=menu_order&order=asc" class="mb-0"></ap-list>
+```
+
+![CleanShot 2023-03-02 at 15.39.06@2x.png](https://res.craft.do/user/full/af4fc4e1-a141-bee2-39cb-9d3a593d9d4c/doc/9A3F7B0F-2D48-4E3D-8F97-B96AF56DCD06/FF586DA5-D120-457E-B890-415B14803746_2/PwF3kny0O3xvJaUoWyeivOVOBC1qg0MJyvos8cZyl5kz/CleanShot%202023-03-02%20at%2015.39.062x.png)
+
+```css
+/* Home Page CSS */
+.page-home-4 h1 {
+	margin:24px;
+	text-align:center;
+}
+
+.page-home-4 .card-featured-image {
+display:none;
+}
+
+.page-home-4 .card-list-content,
+.page-home-4 .card-featured-wrap {
+    display:none;
+}
+```
+
+## Sermons
+
+```html
+<ap-list card=true infiniteScroll="true" route="https://{site.url}/wp-json/wp/v2/sermon" class="mb-0"></ap-list>
+```
+
+![CleanShot 2023-03-02 at 15.37.40@2x.png](https://res.craft.do/user/full/af4fc4e1-a141-bee2-39cb-9d3a593d9d4c/doc/9A3F7B0F-2D48-4E3D-8F97-B96AF56DCD06/05452774-DA12-4598-9D80-E059C5433867_2/lF10yDEJzPxUngg1e6QiGztDVGwhxgOJ4OGdxV4qh6Mz/CleanShot%202023-03-02%20at%2015.37.402x.png)
+
+## Listen
+
+      API Route: `https://{site.url}/wp-json/wp/v2/sermon`
+
+![CleanShot 2023-03-02 at 15.29.02@2x.png](https://res.craft.do/user/full/af4fc4e1-a141-bee2-39cb-9d3a593d9d4c/doc/9A3F7B0F-2D48-4E3D-8F97-B96AF56DCD06/FB37D71F-5A64-40E1-83A2-0C7E78DA9057_2/PhC1WLcxxNm2dNxbYZzUjjwQyTuG3v2rYZQCmrwd0Zkz/CleanShot%202023-03-02%20at%2015.29.022x.png)
+
+## Groups
+
+```html
+<ap-list card="true" infiniteScroll="true" route="https://{site.url}/wp-json/wp/v2/um_groups" class="mb-0"></ap-list>
+```
+
+![CleanShot 2023-03-02 at 15.30.41@2x.png](https://res.craft.do/user/full/af4fc4e1-a141-bee2-39cb-9d3a593d9d4c/doc/9A3F7B0F-2D48-4E3D-8F97-B96AF56DCD06/7FF60C05-C444-4143-9AC6-0BEC09AC3548_2/qqHiQlKQYE6oZbplvxIFg4iSEK7xYsPqad5MiY3eA2Uz/CleanShot%202023-03-02%20at%2015.30.412x.png)
+
+## Events
+
+```html
+<ap-list card="true" infiniteScroll="true" route="https://{site.url}/wp-json/wp/v2/tribe-events?orderby=date&order=asc" class="mb-0"></ap-list>
+```
+
+![CleanShot 2023-03-02 at 15.32.41@2x.png](https://res.craft.do/user/full/af4fc4e1-a141-bee2-39cb-9d3a593d9d4c/doc/9A3F7B0F-2D48-4E3D-8F97-B96AF56DCD06/6FE5D2F2-7104-43AB-984D-67126B3EAA12_2/CnPxQYZy0JazLHDHkDbQDzNMdmQuANTyx8cGKrtBOs4z/CleanShot%202023-03-02%20at%2015.32.412x.png)
+
+## Online Giving
+   - Make sure all giving links open in the system browser. Try adding `onclick=“givelink()”` to the connect card, buttons, or links. That should pull in the fallback URL that is listed in the giving settings for the site.

@@ -1,0 +1,38 @@
+---
+title: Docs-Only Mode
+---
+
+# Setting Docs-Only Mode
+
+## 1. Set a document with a slug /
+
+Create the markdown file you want as homepage inside /docs/ and set the slug to /
+
+```
+---
+id: my-home-doc
+slug: /
+---
+
+My home doc content....
+```
+
+## 2. Set the docs plugin to /
+
+In your docusaurus.config.js add routeBasePath: '/'
+
+```javascript
+presets: [
+  [
+    '@docusaurus/preset-classic',
+    {
+      docs: {
+        routeBasePath: '/',
+```
+
+## 3. Delete the single.js file
+
+Find the following file and delete it:
+
+`./src/pages/index.js`
+

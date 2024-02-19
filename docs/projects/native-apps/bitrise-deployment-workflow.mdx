@@ -1,0 +1,120 @@
+---
+sidebar_position: 12
+---
+
+# Bitrise Workflow
+
+:::note Prerequisites
+Before you can complete the bitrise setup, you will need to manually upload the first APK file to the Google Play Store using [this guide](/projects/native-apps/google-play-listing#submit-first-build-manually).
+:::
+
+import ReactPlayer from 'react-player';
+
+AppPresser will automatically set up a workflow for each new app in our [bitrise](https://app.bitrise.io/) account. Once the app has been built, we'll go to bitrise to upload the security certificates.
+
+To get your Bitrise account setup and ready you will need run through all the steps in this doc which are outlined in this list so that you can double check them once you're done
+
+1. Upload your iOS/Android certs to Bitrise in the Code Signing Tab (You should have 3 provisioning profiles, 2 iOS certificates and an Android Keystore file)
+2. Set up your Environment Variables as per the docs below
+3. Set up your Secret Variables as per the docs below
+4. Set up your Google Play API JSON File (This is required to enable builds to be sent directly to your Google Play Console. Note: This only works for updates. Your first APK file must be sent manually)
+
+<div className='player-wrapper'>
+<ReactPlayer url="https://www.youtube.com/watch?v=RsFn7awatuw"
+    width="100%"
+    height="100%"
+    controls={true}
+    playing={true}
+    muted={true}
+     />
+</div>
+
+1. In the bitrise dashboard, click on the workflow for the app we are launching.
+2. Click on the **Workflows** button in the top right corner.
+3. Visit the **Code Signing & Files** Tab to upload the following provisioning profiles & code signing certificates.
+
+## Provisioning Profiles
+
+1. wildcard_development
+2. client_production
+3. client_ad_hoc
+
+## Code Signing Certificates
+
+1. development.p12
+2. client_ad_hoc.p12
+
+## Generic File Storage
+
+1. Android Keystore File
+
+   File Storage ID: `KEYSTORE`
+
+2. Android json (Upload the APK to retreive from play.google.com)
+
+## Env Vars
+
+Visit the **Env Vars** tab and enter the following:
+1. **$**`APP_DEVELOPMENT_PROFILE` = Copy Green Highlighted ID from the Code Signing Tab
+2. **$**`APP_DEVELOPMENT_TEAM` = `CWQ9VCV3Z6`
+3. **$**`APP_ADHOC_PROFILE` = Copy Green Highlighted ID from the Code Signing Tab
+4. **$**`APP_RELEASE_PROFILE` =  Copy Green Highlighted ID from the Code Signing Tab
+5. **$**`APP_STORE_TEAM_NAME` = `Digital Church Limited`
+6. **$**`APP_BUNDLE_ID` = Reverse Domain for App (Example: app.digitalchurch.cornerstone)
+
+## Secrets
+
+Visit the **Secrets** tab and enter the following
+
+1. **$**`APP_STORE_USERNAME` = `mark.tenney@icloud.com`
+
+      `TRUE` Replace Variables in inputs?
+
+      `FALSE` Expose for Pull Requests?
+
+2. **$**`APP_STORE_PW` = Find in 1Password
+
+      `TRUE` Replace Variables in inputs?
+
+      `FALSE` Expose for Pull Requests?
+
+3. **$**`APP_SPECIFIC_PW` = Find in 1Password under Bitrise
+
+      `TRUE` Replace Variables in inputs?
+
+      `FALSE` Expose for Pull Requests?
+
+### Android Keystore Files
+
+1. **$**`KEYSTORE_ALIAS` = Same as file name if using Fastlane.
+
+         `TRUE` Replace Variables in inputs?
+
+         `FALSE` Expose for Pull Requests?
+
+2. **$**`KEYSTORE_PW` = Find in 1Password (Used in config file for Fastlane)
+
+         `TRUE` Replace Variables in inputs?
+
+         `FALSE` Expose for Pull Requests?
+
+3. Android JSON Key
+      1. Manually Upload the APK
+      2. Generate the key
+      3. Upload to Code Signing > Generic Storage
+
+## Internal Testing
+
+   Once the app store listing and bitrise have both been setup, you can run an **iOS Debug** build in the AppPresser customizer, and that will push a test release you can test on an internal device.
+
+   **Make sure your device is added as a bitrise test device as well!**
+
+[Bitrise - Mobile Continuous Integration and Delivery - iOS & Android Build Automation](https://app.bitrise.io/me/profile#/test_devices)
+
+   1. Make sure the device has developmer mode enabled in **Settings > Privacy & Security > Developer Mode**
+
+## TestFlight
+
+   Once the app store listing and bitrise have both been setup, you can run an **iOS Debug** build in the AppPresser customizer, and that will push a test release you can test on an internal device.
+
+   Once you've submitted the first build, you'll need to view the build in appstoreconnect.apple.com and complete the compliance information. (select "None of the Algorithms Mentioned Above")

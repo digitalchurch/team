@@ -1,0 +1,15 @@
+---
+title: Snapshot Failover
+---
+
+# Setting up a Snapshot Failover Server using GridPane
+
+1. Follow the guide on https://gridpane.com/kb/how-to-setup-snapshot-failover-with-dns-made-easy/
+
+:::note ~~DNS Made Easy~~
+We don't use DNS Made Easy. Instead, we use Cloudflare and can manually switch everyone over via the network domain DNS records.
+:::
+
+2. Since we are using wp-ultimo to provision new sites and map domains, we need to make sure the failover server has the WP Ultimo integration activated in the GridPane dashboard under **Sites > failover.site > Multisite Settings**.
+3. Use the hosts file to set the IP for your local machine to point to the failover server for the network domain (i.e. digitalchurch.app), an unmapped subdomain (i.e. dev.digitalchurch.app), and a mapped subdomain (i.e. digitalchurch.com).
+4. Test to make sure all three domains load properly with SSL from the failover server and work with GridPane to solve if they don't.

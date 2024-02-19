@@ -1,0 +1,34 @@
+---
+sidebar_position: 14
+---
+
+# Extra Resources
+
+---
+
+## Improving the Back Button Behavior in WordPress Pages
+
+   > Note: This has been implemented via the dgtl-app plugin already on our main production server for digitalchurch.app. We scoped it to the ion-ap3 class as well.
+
+   The back button in your AppPresser app works by interacting with pushPage windows. When you open a menu item, it launches a pushPage window over the top of the home screen which the back button will close to move back to the home screen.
+
+   If your app relies on clicking through many links in WordPress Pages you may have found that the back button becomes confusing as it closes the pushPage window moving the user all the way back to the home screen instead of back a single page. To combat this, you can add the "push-page" class to a link in WordPress to have that link open in its own pushPage window so the user can go back to the page before it.
+
+   Adding that push-page class manually can be slow and difficult so a better solution might be to automate it. We can do this with some jQuery added to our footer.php file (Be sure to copy ap3-ion-theme/footer.php to an AP3 Child Theme first). The code below looks for all tags within the 'main' class and applies the push-page class to them. Depending on your site and app setup you may not want the push-page class on all links so you could change .main to be a more specific selector. For example, changing it to .bbpress would only add the class to bbpress pages where having the stacked push-page windows is more important for your users.
+
+```javascript
+<script>
+	jQuery(document).on('ready', function(){
+	   jQuery(".main a").addClass("push-page");
+	});
+</script>
+```
+
+## Custom CSS
+
+[app.css](https://res.craft.do/user/full/af4fc4e1-a141-bee2-39cb-9d3a593d9d4c/doc/9A3F7B0F-2D48-4E3D-8F97-B96AF56DCD06/5173468F-3D00-42D7-A5EF-B298B38DF85E_2/pxWcGCP5KLGTZgRrxnwycm1yRAWkf5SvtVHVSZDRBZUz/app.css)
+
+[A Complete Guide to the Hellish World of iOS app Certificates and Profiles | Reactor Apps](https://reactorapps.io/blog/ios-certificate-guide/)
+
+![Image.png](https://res.craft.do/user/full/af4fc4e1-a141-bee2-39cb-9d3a593d9d4c/doc/9A3F7B0F-2D48-4E3D-8F97-B96AF56DCD06/CCC2278C-4F5B-4977-9F7D-1A68C9DC31CE_2/AWUxhxxj4RqR0EDuf8cY2qNqvO6KQxQwjA6i8GwTTxAz/Image.png)
+

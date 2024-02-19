@@ -1,0 +1,20 @@
+---
+title: How to use transparency with CSS Variables that are HEX values
+---
+
+# Using Transparency with CSS Variables that are HEX values
+
+This requires the use of color-mix. Example below:
+
+```css
+:root {
+  --slate-100: #f1f5f9;
+  --neutral-100: var(--slate-100);
+  }
+
+element {
+    background: color-mix(in srgb, var(--neutral-100) 70%, transparent);
+}
+```
+
+Note: We've used this to make our tabs have color with transparency.

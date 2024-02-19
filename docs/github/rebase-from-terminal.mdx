@@ -1,0 +1,52 @@
+---
+Title: Rebase from Terminal
+---
+
+# Rebase from Github via Terminal
+
+When you need to rebase from Github via terminal because you're having conflict issues, here's what you'll want to do.
+
+## CD into the directory
+
+If you are above the directory, you'll want to CD into the correct directory.
+
+```bash
+cd guide
+```
+
+## Run `git pull github main`
+
+```bash
+git pull github main
+```
+
+## If that doesn't work, run `git config pull.rebase true`
+
+That will rebase the repo. Then try `git pull github main` again.
+
+Here's what you end up getting from the terminal:
+
+```bash
+marktenney@Marks-iMac guide % git pull github main
+From https://github.com/digitalchurch/guide
+ * branch            main       -> FETCH_HEAD
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+fatal: Need to specify how to reconcile divergent branches.
+marktenney@Marks-iMac guide % git config pull.rebase true
+marktenney@Marks-iMac guide % git pull github main
+From https://github.com/digitalchurch/guide
+ * branch            main       -> FETCH_HEAD
+Successfully rebased and updated refs/heads/main.
+marktenney@Marks-iMac guide % 
+```

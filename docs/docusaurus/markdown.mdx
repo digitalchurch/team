@@ -1,0 +1,163 @@
+# Markdown
+
+Learn how to use MDX for extra features in the markdown syntax.
+
+## Front Matter
+
+Markdown documents have metadata at the top called [Front Matter](https://jekyllrb.com/docs/front-matter/):
+
+```text title="my-doc.md"
+// highlight-start
+---
+id: my-doc-id
+title: My document title
+description: My document description
+slug: /my-custom-url
+---
+// highlight-end
+
+## Markdown heading
+
+Markdown text with [links](./hello.md)
+```
+
+## Autolink literals
+
+just type them in and they will automatically turn into hyperlinks.
+
+```
+www.example.com, https://example.com, and contact@example.com.
+```
+
+The above is rendered below.
+
+www.example.com, https://example.com, and contact@example.com.
+
+## Footnote
+
+You can leave a footnote that shows up at the bottom of the page.
+
+A note[^1]
+
+[^1]: Big note.
+
+```
+A note[^1]
+
+[^1]: Big note.
+```
+
+## Strikethrough
+
+~~two~~ tildes.
+
+```
+~~two~~ tildes.
+```
+
+## Table
+
+| a | b  |  c |  d  |
+| - | :- | -: | :-: |
+
+```mdx
+| a | b  |  c |  d  |
+| - | :- | -: | :-: |
+```
+
+## Tasklist
+
+* [ ] to do
+* [x] done
+
+```
+* [ ] to do
+* [x] done
+```
+
+## Leaving tips
+
+:::tip My tip
+
+Use this awesome feature option
+
+:::
+
+```
+:::tip My tip
+
+Use this awesome feature option
+
+:::
+```
+
+## Collapsable Sections
+
+
+<details>
+  <summary>This is the title</summary>
+
+  ### Hidden content
+
+  Here's the hidden content!
+
+</details>
+
+Here's the syntax:
+
+```MDX
+<details>
+  <summary>This is the title</summary>
+
+  ### Hidden content
+
+  Here's the hidden content!
+
+</details>
+```
+
+## Adding Tabs
+
+```js Adding Tabs
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="classic" label="Classic Editor" default>
+    If the admin page you are experiencing the issue with uses the classic editor, then you need to click on the "Screens" tab in the top right corner of the page. That will drop down a menu that shows which Metaboxes you have set as visible. If the settings area you are missing isn't checked, then select it and click on the <b>Apply</b> button.
+        <img
+        src={require('.//img/screen-options.jpg').default}
+        alt="Screen Options in Classic Editor"
+        />
+  </TabItem>
+  <TabItem value="block" label="Block Editor">
+    The the admin page you are experiencing the issue with uses the block editor, then you need to click on the three dots in the top right corner and select "Preferences". Then in the "Panels" tab of the Preferences menu, enable the panels you were missing.
+    <img
+        src={require('.//img/enable-panels.gif').default}
+        alt="Screen Options in Classic Editor"
+        />
+  </TabItem>
+</Tabs>
+```
+
+This looks like this:
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+  <TabItem value="classic" label="Classic Editor" default>
+    If the admin page you are experiencing the issue with uses the classic editor, then you need to click on the "Screens" tab in the top right corner of the page. That will drop down a menu that shows which Metaboxes you have set as visible. If the settings area you are missing isn't checked, then select it and click on the <b>Apply</b> button.
+        <img
+        src={require('.//img/screen-options.jpg').default}
+        alt="Screen Options in Classic Editor"
+        />
+  </TabItem>
+  <TabItem value="block" label="Block Editor">
+    The the admin page you are experiencing the issue with uses the block editor, then you need to click on the three dots in the top right corner and select "Preferences". Then in the "Panels" tab of the Preferences menu, enable the panels you were missing.
+    <img
+        src={require('.//img/enable-panels.gif').default}
+        alt="Screen Options in Classic Editor"
+        />
+  </TabItem>
+</Tabs>

@@ -1,0 +1,36 @@
+---
+sidebar_position: 1
+---
+
+# Getting Started
+
+1. Login to [myapppresser.com](https://myapppresser.com) using the credentials in 1Password.
+2. Click on the **+New App** button in the top right corner of the dashbaord.
+3. Fill out the following details
+   - App Title (from Site Title)
+   - WordPress URL (development URL - change to live at launch)
+   - App Toolbar Color: Always use #fafafa
+   - Toolbar Text Color: Always use #2a2a2a
+   - App Features: Login
+   - Pages: Static Homepage
+
+![CleanShot 2023-03-02 at 15.44.18@2x.png](https://res.craft.do/user/full/af4fc4e1-a141-bee2-39cb-9d3a593d9d4c/doc/9A3F7B0F-2D48-4E3D-8F97-B96AF56DCD06/8021D4AD-A4C7-4CDF-A2BE-2E05E560D600_2/3QyREiaPJroc9EN8b0blqlGiSkjMyy7K7AmFIyKW1p8z/CleanShot%202023-03-02%20at%2015.44.182x.png)
+
+4. Click **Create App** button at the bottom of that page.
+5. Add the Splash Screen and Icon
+   - Icon must be 1024x1024 png
+   - Splash screen should be
+6. Go to the development website and visit the plugins page. Activate the following plugins: (directory name included for activation via wp-cli)
+   - AppPresser `apppresser`
+   - Digital Church Native App `dgtl-app`
+   - AppPush `apppush`
+   - JWT Authentication for WP-API `jwt-authentication-for-wp-rest-api`
+7. Visit the [AppPresser Settings page](https://{site.url}/wp-admin/admin.php?page=apppresser_settings) in wp-admin `https://{site.url}/wp-admin/admin.php?page=apppresser_settings` and enter the following information:
+      - App ID (found in the AppPresser Dashboard)
+      - site slug `digital-church`
+      - email address `mark@digitalchurchplatform.com`
+      - Select `Sermons` and `Podcast` as media post types
+
+![CleanShot 2023-03-08 at 13.01.51@2x.jpeg](https://res.craft.do/user/full/af4fc4e1-a141-bee2-39cb-9d3a593d9d4c/doc/9A3F7B0F-2D48-4E3D-8F97-B96AF56DCD06/920674CF-00C1-4FE0-9D08-418E31635B03_2/ySmfGQgT8XIHHM0WIWBRCX6yJb8wAdGSFRBJeAYqayAz/CleanShot%202023-03-08%20at%2013.01.512x.jpeg)
+
+![CleanShot 2023-03-08 at 13.03.07@2x.jpeg](https://res.craft.do/user/full/af4fc4e1-a141-bee2-39cb-9d3a593d9d4c/doc/9A3F7B0F-2D48-4E3D-8F97-B96AF56DCD06/828A9078-FF94-4B09-AFB2-CEB041F24C08_2/vqpZtSSWxcrJmnacn1OEH3Q1IqjVQoebWdhAQYwrry4z/CleanShot%202023-03-08%20at%2013.03.072x.jpeg)

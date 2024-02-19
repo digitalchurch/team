@@ -1,0 +1,399 @@
+---
+sidebar_position: 2
+---
+
+# Global CSS
+
+```css
+/* Global CSS */
+body {
+--global-palette1: #8d7338;
+--global-palette2: #af8f46;
+--global-palette3: #000000;
+--global-palette4: #1f1f1f;
+--global-palette5: #333333;
+--global-palette6: #697f8a;
+--global-palette7: #efefef;
+--global-palette8: #fafafa;
+--global-palette9: #ffffff;
+}
+
+a:any-link {
+text-decoration: none !important;
+}
+
+/* Logo on Every Page */
+ion-header ion-title span {
+   display: none;
+}
+
+ion-header ion-title {
+   width: 100%;
+   content: "";
+   background-image: url(assets/header-logo.png); 
+   height: 35px;
+   background-repeat: no-repeat;  
+   background-size: contain;
+   background-position: center;
+}
+
+/* Fonts */
+h1, h2, h3, h4, h5, h6, .item h2 {
+font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu !important;
+}
+
+/* Layout Fixes */
+.padding {
+    padding:0;
+}
+
+.dgtl-latest-sermon-video {
+position: relative;
+padding-bottom: 56.25%;
+height: 0;
+}
+
+.dgtl-latest-sermon-video iframe {
+width:100% !important;
+height:100% !important;
+}
+
+.aligncenter {
+    clear: both;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Colors */
+#main .dark,
+#main .dark a,
+#main .dark h1,
+#main .dark h2,
+#main .dark h3,
+#main .dark h4,
+#main .dark h5,
+#main .dark h6 {
+    color: var(--global-palette9) !important;
+}
+
+.fl-row-bg-photo h1,
+.fl-row-bg-photo h2,
+.fl-row-bg-photo h3,
+.fl-row-bg-photo h4,
+.fl-row-bg-photo h5,
+.fl-row-bg-photo h6,
+.fl-builder-content .fl-row-bg-photo .subtle-text span.fl-heading-text
+{
+color:white !important;
+}
+
+
+ion-menu-button {
+color:#c9cacb;
+}
+
+ion-tab-button.ion-activated {
+color:#a68c5d;
+}
+
+/* Image Fixes */
+img {
+    height: auto;
+}
+
+/* Gravity Forms CSS */
+
+.gform_body ul {
+padding:0;
+}
+
+/* Form Hidden Fields */
+.gfield_visibility_hidden {
+  visibility: hidden;
+  position: absolute;
+  left: -9999px; }
+
+/* Form Header and Footer */
+.gform_heading, .gform_footer {
+  text-transform: capitalize;
+  padding: 0 10px; }
+
+.gform_footer .button .icon {
+  margin-left: 5px; }
+
+.gform_footer {
+  margin-bottom: 30px; }
+
+/* Field Descriptions */
+
+.gfield_description {
+  font-size: 16px;
+  font-size: 0.8rem; }
+
+/* Field Margins and Gutters */
+
+body .gfield {
+  margin-bottom: 30px;
+  padding: 0 10px; }
+
+.gfield:not(.separate-fields) .ginput_complex {
+  margin-left: -10px;
+  margin-right: -10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; }
+  .gfield:not(.separate-fields) .ginput_complex .name_suffix, .gfield:not(.separate-fields) .ginput_complex .name_prefix {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100px;
+            flex: 0 0 100px; }
+  .gfield:not(.separate-fields) .ginput_complex .ginput_full {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 100%;
+            flex: 1 0 100%; }
+  .gfield:not(.separate-fields) .ginput_complex .ginput_cardinfo_left, .gfield:not(.separate-fields) .ginput_complex .ginput_cardinfo_right, .gfield:not(.separate-fields) .ginput_complex .ginput_left, .gfield:not(.separate-fields) .ginput_complex .ginput_right {
+    width: 50%;
+    padding: 0 10px; }
+  .gfield:not(.separate-fields) .ginput_complex > span {
+    padding-left: 10px;
+    padding-right: 10px; }
+
+.ginput_complex > span {
+  display: block;
+  margin-bottom: 15px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto; }
+  .ginput_complex > span:last-child, .ginput_complex > span.name_first {
+    margin-bottom: 0; }
+  .ginput_complex > span label {
+    font-size: 12px;
+    font-size: 0.6rem; }
+
+/* Checkbox and Radio Fields */
+
+.gform_fields, .gfield_radio, .gfield_checkbox {
+  list-style: none;
+  margin: 0; }
+
+.gfield_radio li, .gfield_checkbox li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+/* Form Time Input */
+
+.clear-multi {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.ginput_container_time input {
+  width: 3em;
+  float: left; }
+.ginput_container_time i {
+  font-style: normal;
+  float: left;
+  padding: 0 3px; }
+.ginput_container_time label {
+  font-size: 12px;
+  font-size: 0.6rem;
+  clear: both; }
+
+.gfield_time_ampm {
+  margin-left: 5px;
+  position: relative;
+  bottom: .5rem; }
+
+/* Form List Item Input */
+
+.add_list_item, .delete_list_item {
+  width: 15px; }
+
+.gfield_list_icons {
+  width: 48px;
+  padding-left: 4px; }
+
+.gfield_list_icons, .gfield_list_icons img {
+  vertical-align: middle; }
+
+.gfield_list_cell {
+  vertical-align: baseline; }
+
+/* Products and Totals */
+
+body .ginput_quantity {
+  display: inline-block;
+  width: 100px; }
+
+.ginput_product_price {
+  margin-right: 5px; }
+
+.gform_card_icon {
+  margin-right: 4px;
+  text-indent: -9000px;
+  background-image: url("../../plugins/gravityforms/images/gf-creditcard-icons.png");
+  background-repeat: no-repeat;
+  width: 36px;
+  height: 32px;
+  float: left; }
+
+.gform_card_icon_container {
+  margin-bottom: 5px; }
+
+.ginput_complex .ginput_cardextras {
+  margin-left: -10px;
+  margin-right: -10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
+.ginput_card_expiration_container {
+  display: block; }
+
+.ginput_cardinfo_right select {
+  width: auto;
+  margin-right: 15px; }
+
+.ginput_cardinfo_right {
+  position: relative; }
+  .ginput_cardinfo_right input {
+    padding-right: 40px; }
+
+.ginput_card_security_code_icon {
+  width: 32px;
+  height: 23px;
+  background-image: url("../../plugins/gravityforms/images/gf-creditcard-icons.png");
+  background-repeat: no-repeat;
+  background-position: 0 -128px;
+  position: absolute;
+  top: .4em;
+  right: 15px;
+  display: block; }
+
+.gform_card_icon_visa {
+  background-position: 0 0; }
+  .gform_card_icon_visa.gform_card_icon_selected {
+    background-position: 0 -32px; }
+  .gform_card_icon_visa.gform_card_icon_inactive {
+    background-position: 0 -64px; }
+
+.gform_card_icon_style2 .gform_card_iconvisa {
+  background-position: 0 -192px; }
+  .gform_card_icon_style2 .gform_card_iconvisa.gform_card_icon_selected {
+    background-position: 0 -224px; }
+  .gform_card_icon_style2 .gform_card_iconvisa.gform_card_icon_inactive {
+    background-position: 0 -256px; }
+
+.gform_card_icon_mastercard {
+  background-position: -36px 0; }
+  .gform_card_icon_mastercard.gform_card_icon_selected {
+    background-position: -36px -32px; }
+  .gform_card_icon_mastercard.gform_card_icon_inactive {
+    background-position: -36px -64px; }
+
+.gform_card_icon_style2 .gform_card_iconmastercard {
+  background-position: -36px -192px; }
+  .gform_card_icon_style2 .gform_card_iconmastercard.gform_card_icon_selected {
+    background-position: -36px -224px; }
+  .gform_card_icon_style2 .gform_card_iconmastercard.gform_card_icon_inactive {
+    background-position: -36px -256px; }
+
+.gform_card_icon_amex {
+  background-position: -72px 0; }
+  .gform_card_icon_amex.gform_card_icon_selected {
+    background-position: -72px -32px; }
+  .gform_card_icon_amex.gform_card_icon_inactive {
+    background-position: -72px -64px; }
+
+.gform_card_icon_style2 .gform_card_iconamex {
+  background-position: -72px -192px; }
+  .gform_card_icon_style2 .gform_card_iconamex.gform_card_icon_selected {
+    background-position: -72px -224px; }
+  .gform_card_icon_style2 .gform_card_iconamex.gform_card_icon_inactive {
+    background-position: -72px -256px; }
+
+.gform_card_icon_discover {
+  background-position: -108px 0; }
+  .gform_card_icon_discover.gform_card_icon_selected {
+    background-position: -108px -32px; }
+  .gform_card_icon_discover.gform_card_icon_inactive {
+    background-position: -108px -64px; }
+
+.gform_card_icon_style2 .gform_card_icondiscover {
+  background-position: -108px -192px; }
+  .gform_card_icon_style2 .gform_card_icondiscover.gform_card_icon_selected {
+    background-position: -108px -224px; }
+  .gform_card_icon_style2 .gform_card_icondiscover.gform_card_icon_inactive {
+    background-position: -108px -256px; }
+
+.gform_card_icon_maestro {
+  background-position: -144px 0; }
+  .gform_card_icon_maestro.gform_card_icon_selected {
+    background-position: -144px -32px; }
+  .gform_card_icon_maestro.gform_card_icon_inactive {
+    background-position: -144px -64px; }
+
+.gform_card_icon_style2 .gform_card_iconmaestro {
+  background-position: -144px -192px; }
+  .gform_card_icon_style2 .gform_card_iconmaestro.gform_card_icon_selected {
+    background-position: -144px -224px; }
+  .gform_card_icon_style2 .gform_card_iconmaestro.gform_card_icon_inactive {
+    background-position: -144px -256px; }
+
+.gform_card_icon_jcb {
+  background-position: -180px 0; }
+  .gform_card_icon_jcb.gform_card_icon_selected {
+    background-position: -180px -32px; }
+  .gform_card_icon_jcb.gform_card_icon_inactive {
+    background-position: -180px -64px; }
+
+.gform_card_icon_style2 .gform_card_iconjcb {
+  background-position: -180px -192px; }
+  .gform_card_icon_style2 .gform_card_iconjcb.gform_card_icon_selected {
+    background-position: -180px -224px; }
+  .gform_card_icon_style2 .gform_card_iconjcb.gform_card_icon_inactive {
+    background-position: -180px -256px; }
+
+/* Errors and Messages */
+
+.validation_error {
+  margin: 0 10px 20px;
+  color: white;
+  background: rgba(139, 0, 0, 0.8);
+  padding: 10px; }
+
+.gfield_error {
+  border-top: 1px solid rgba(139, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(139, 0, 0, 0.4); }
+
+.validation_message {
+  color: darkred;
+  font-size: 14px;
+  font-size: 0.7rem;
+  margin-top: 5px; }
+
+/* Home Page CSS */
+.page-home-6 h1 {
+	margin:24px;
+	text-align:center;
+}
+
+.page-home-6 .card-featured-image {
+display:none;
+}
+
+.page-home-6 .card-list-content,
+.page-home-6 .card-featured-wrap {
+    display:none;
+}
+```

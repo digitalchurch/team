@@ -1,0 +1,41 @@
+---
+title: Cloning a Multisite Network
+---
+
+# Cloning a Multsite Network to a new Server via GridPane
+
+Occasionally, we need to rebuild a new server for large multisite installations. This typically happens when we need to upgrade the OS of the server. When cloning a multisite network to a new server, here's the procedure we follow:
+
+When cloning a network:
+
+
+1.  Do a `wp db repair` on the source network first
+1.  When complete, turn off page caching and enable wp-ultimo integration
+1.  Setup Custom Multisite Cron
+1.  Check sites using hosts file.
+	-  Main Network Site
+	-  Three Subdomains
+	-  Three Mapped Digital Church Domains
+	-  Three Mapped Client Domains (Top Traffic)
+
+:::note title="Examples"
+- digitalchurch.app
+- [digitalchurch.com](http://digitalchurch.com)
+- digitalchurch.agency
+- yourdigital.church
+- amez.digitalchurch.app
+- city.digitalchurch.app
+- dev.digitalchurch.app
+- [cincinattichurch.org](http://cincinattichurch.org)
+- [sconaz.org](http://sconaz.org)
+- [fcchurch.org](http://fcchurch.org)
+:::
+
+5.  Disable maintenance mode on target server
+1.  Run Software Updates
+1.  Re-enable caching.
+1.  Check hosts file sites again
+	1.  Clear BB Cache and Page Cache if Needed
+1.  Update CDN Domain (digitalchurch.cloud) DNS
+1.  Set DNS for sites via network domain (digitalchurch.app)
+1.  Check client DNS and sites for changes. Probably on a different machine if possible.

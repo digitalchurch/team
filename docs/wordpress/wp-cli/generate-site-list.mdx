@@ -1,0 +1,11 @@
+---
+title: Generate Site List
+---
+
+# Generate a List of All Sites on a Multisite Network
+
+```bash
+wp site list --allow-root --fields=blog_id,url,last_updated,registered --format=csv
+```
+
+This will give you a block of CSV text you can copy into a new .csv file on your local computer. Then you can import it into a spreadsheet or Airtable to process the list.

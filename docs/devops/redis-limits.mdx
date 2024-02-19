@@ -1,0 +1,30 @@
+---
+Title: Redis Limits
+---
+
+# Setting Limits for Redis
+
+GridPane sets redis memory limits at 10% of the available RAM by default. For our platform, it is better to run the redis at 20%. GridPane suggests that we never exceed 25%.
+
+## Calculating 20% of RAM
+
+Check the server RAM using this command:
+
+In the terminal, run the command `free -h` and you'll receive something like this:
+
+```bash
+root@digitalchurch-prod:~/www/digitalchurch.app# free -h
+              total        used        free      shared  buff/cache   available
+Mem:           15Gi       7.3Gi       4.0Gi       108Mi       4.4Gi       7.9Gi
+Swap:         4.0Gi       122Mi       3.9Gi
+```
+
+In this instance, our server has a total RAM allocation of ~16GB. Multiply that by 20% and we need to allocate 3200 MB.
+
+## Use GP-CLI to set Redis to 20%
+
+Using the above example, our command would look like this:
+
+```bash
+gp stack redis -max-memory 3200
+```
