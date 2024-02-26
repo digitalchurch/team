@@ -8,19 +8,54 @@ When updating software on our platform, we follow a strict procedure and documen
 
 ## Document the Process
 
-Create a Blog Post on our team site at https://digitalchurch.team to document the update process as you go.
+Create a Blog Post on our team site at https://digitalchurch.team to document the update process as you go. It will be an .mdx file with the following naming convention: `YYYY-MM-DD-updates.mdx`
+
+```mdx
+---
+title: Updates on Feb 26, 2024
+authors:
+  name: Mark Tenney
+  title: Founder
+  url: https://github.com/marktenney
+  image_url: https://avatars.githubusercontent.com/u/29559053?v=4
+tags: [updates]
+---
+
+# Software Updates
+
+## Themes
+
+| name    | old_version | new_version | status  |
+| :- | :- | :- | :- |
+| astra           | 4.6.2       | 4.6.5       | Updated |
+
+## Plugins
+
+| name | old_version | new_version | status  |
+| :- | :- | :- | :- |
+| admin-menu-editor-pro       | active-network | 2.22.1        | 2.23.3         |
+
+## Core
+
+Include notes on Core Update here.
+```
 
 ## Generate a Report of Available Updates
 
 Enter the CLI via terminal on the server you wish to update and navigate to the site directory. Generate a report using the CLI command below, and paste it into the team blog post documentation.
 
-```bash
-gp wp digitalchurch.app plugin update --all --dry-run
-```
+### Theme Updates
 
 ```bash
 gp wp digitalchurch.app theme update --all --dry-run
 ```
+
+### Plugin Updates
+
+```bash
+gp wp digitalchurch.app plugin update --all --dry-run
+```
+### Core Update
 
 ```bash
 gp wp digitalchurch.app core version --extra
@@ -29,24 +64,14 @@ gp wp digitalchurch.app core version --extra
 ```bash
 gp wp digitalchurch.app core check-update
 ```
-
-Paste each report into the team blog post, but change the formatting slightly. Remove the top and bottom lines of `+----------------+` and replace the line just under the heading with the MDX table syntax like this:
-
-```bash
-| :- | :- | :- | :- |
-```
-
-That should make the tables look great on our team blog.
-
-
 ## Run Updates
 
 ```bash
-gp wp digitalchurch.app plugin update --all
+gp wp digitalchurch.app theme update --all
 ```
 
 ```bash
-gp wp digitalchurch.app theme update --all
+gp wp digitalchurch.app plugin update --all
 ```
 
 ```bash
@@ -60,11 +85,11 @@ gp wp digitalchurch.app beaver clearcache
 ```
 
 ```bash
-gp wp digitalchurch.app beaver clearcache
+gp fix cached
 ```
 
 ## Testing
 
 If you completed a core update, you'll need to run through a database upgrade for the network here: https://digitalchurch.app/wp-admin/network/upgrade.php
 
-Once you've run all the updates and cleared all the caches, it's time to do some tests to make sure nothing broke in the process. Refer to the document: [Post Update Testing](/)
+Once you've run all the updates and cleared all the caches, it's time to do some tests to make sure nothing broke in the process. Refer to the document: [Post Update Testing](/deevops/post-update-testing)
