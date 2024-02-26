@@ -1,0 +1,8 @@
+{
+  "label": "Manual Certificates",
+  "position": 15,
+  "link": {
+    "type": "generated-index",
+    "description": "If fastlane does not work, this is how you would manually generate the certificates."
+  }
+}

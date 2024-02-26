@@ -5,9 +5,48 @@ sidebar_position: 14
 
 # Automated Certificate Generation via Fastlane 🚀
 
-   > **PreRequisites:** Make sure XCode and Java are installed on the machine you are using. Restart your machine after installations are complete. `brew install mas;mas install 497799835;brew install java`
+:::note PreRequisites
+Make sure XCode and Java are installed on the machine you are using. Restart your machine after installations are complete. `brew install mas;mas install 497799835;brew install java`
+:::
 
-[GitHub - GForceWeb/AppPresserCertsGenerator: Uses the Fastlane CLI to generate a full cert of certificates required to publish AppPresser apps. Requires MacOS](https://github.com/GForceWeb/AppPresserCertsGenerator)
+## Download the Latest Build of the AppPresser Certs Generator
+
+:::note
+Do NOT re-use an old version or try to sync to a repository. Just download the package each time from the AppPresser repo and run it fresh.
+:::
+
+Download Link: [GitHub - GForceWeb/AppPresserCertsGenerator: Uses the Fastlane CLI to generate a full cert of certificates required to publish AppPresser apps. Requires MacOS](https://github.com/GForceWeb/AppPresserCertsGenerator)
+
+## Prepare for Certificate Generation
+
+1. Open the downloaded repo in VSCode.
+2. Check to make sure fastlane is installed by running `fastlane -v`
+3. Open the fastfile and edit lines 11-25 with the correct information. See the example below:
+
+```js {3-7,15-17} showLineNumbers
+#Fill These based on your app data
+
+site_slug = "digital-church"    ##This is the slug at the end of your MyAppPresser URL. IE: myapppresser.com/mysiteslug
+app_name = "Mason Street COC"  ##This is the Name of your app as set under the Settings -> App Name field
+app_id = "app.digitalchurch.masonstreetchurchofchrist"  ##This is your app ID as set under the Settings -> App ID field. NOTE: If you have an existing app this MUST match the bundle ID of the existing app
+username = "mark.tenney@icloud.com" ##Your Apple account Username
+iospassword = ".CK_uteMhT4TZzo!sGZL"  ##The Password for your iOS Certificates (dev, prod & prodpush). This will be required in Bitrise to unlock the certs as well as MyAppPresser in the push notification settings.
+
+##LEAVE BLANK unless you're using a shared account with access to multiple teams
+#To get Team ID, run fastlane appp and take the correct team ID from the first prompt then kill the script
+team_id = ""
+
+##Create an android keystore by running "fastlane android". Alias will be the same as the filename
+#Android Keystore Variables ## Use fastlane android to generate these
+custname = "Digital Church"  ##Replace with your name
+countrycode = "US"  ##Your 2 letter Country Code.
+keystorepassword = ".CK_uteMhT4TZzo!sGZL"  ##Replace this with your own password for the Keystore. MAKE SURE YOU SAVE THIS PW. You'll need to enter it into Bitrise later
+
+#Change to false if re-running the tool with a pre-existing push cert to avoid creating duplicates
+forcepush = "false"
+
+## No More edits required below ##
+```
 
    1. Download the GitHub repo and drag it into vsCode.
    2. Install fastlane via Homebrew `brew cask install fastlane`

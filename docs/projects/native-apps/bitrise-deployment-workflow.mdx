@@ -98,23 +98,35 @@ Visit the **Secrets** tab and enter the following
 
          `FALSE` Expose for Pull Requests?
 
-3. Android JSON Key
-      1. Manually Upload the APK
-      2. Generate the key
-      3. Upload to Code Signing > Generic Storage
+3. **$**`BITRISEIO_KEYSTORE_URL` = URL to the Keystore file in Generic Storage
 
-## Internal Testing
+:::note USE GENERIC STORAGE, NOT ANDROID KEYSTORE FILE SECTION IN BITRISE
+This will be automatically made available if you uploaded the keystore file to Generic Storage as instructed. Do NOT upload to the "Android Keystore File" section on the Code Signing tab.
+:::
 
-   Once the app store listing and bitrise have both been setup, you can run an **iOS Debug** build in the AppPresser customizer, and that will push a test release you can test on an internal device.
+## Android JSON Key
 
-   **Make sure your device is added as a bitrise test device as well!**
+1. Manually Upload the APK
+2. Generate the key
+3. Upload to Code Signing > Generic Storage
 
-[Bitrise - Mobile Continuous Integration and Delivery - iOS & Android Build Automation](https://app.bitrise.io/me/profile#/test_devices)
+This is an API Key that allows bitrise to automatically send your production APK file to your Google Play Console. To set this up you must create this file, [see this](https://devcenter.bitrise.io/en/deploying/android-deployment/deploying-android-apps-to-bitrise-and-google-play.html). 
 
-   1. Make sure the device has developmer mode enabled in **Settings > Privacy & Security > Developer Mode**
+Upload the key file to Workflows => Code Signing => Generic Storage using the label "ANDROID_JSON". 
 
-## TestFlight
+Then, go to the play store workflow, click Deploy to Google play at the bottom left, and then click the "Service Account JSON key file path" field, and select the file you just uploaded by searching for the ANDROID_JSON_KEY.
 
-   Once the app store listing and bitrise have both been setup, you can run an **iOS Debug** build in the AppPresser customizer, and that will push a test release you can test on an internal device.
+Once the correct certs have been uploaded and these variables have been defined, everything should work automatically.
 
-   Once you've submitted the first build, you'll need to view the build in appstoreconnect.apple.com and complete the compliance information. (select "None of the Algorithms Mentioned Above")
+## Manually Upload the First Android APK
+
+If you have done everything correctly, the initial build will still fail. You just need to upload the intitial APK file manually to Android. Subsequent builds should work automatically. Here's the error message you will receive if the first file has not been uploaded yet:
+
+```bash
+Couldn't create config: failed to parse config:
+- JSONKeyPath: required variable is not present
+```
+
+:::note
+Something not working? Make sure the AppPresser documentation is still consistent with ours? If not, we may need to update ours to follow theirs. [View the AppPresser Documentation](https://docs.apppresser.com/article/629-bitrise-workflow-self-setup)
+:::

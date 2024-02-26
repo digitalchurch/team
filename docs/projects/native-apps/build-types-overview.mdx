@@ -1,0 +1,79 @@
+---
+title: Build Types Overview
+sidebaar_position: 20
+---
+
+# Build Types Overview
+
+## Android Debug
+
+Provided you have an Android device this is the simplest of the build options that requires no prerequisite steps. After this build completes you will receive an email with a link to the resultant APK file that you can open on your Android device to directly install the app. 
+
+### Key Features 
+
+- No certificates are required to build
+- Can be installed directly to your device without Google Play
+- Push Notifications work normally
+- Debuggable - Allows you to debug the app running on your device to inspect CSS, troubleshoot console errors and more. See Mobile Debugging
+
+## iOS Debug
+
+Similar to the Android Debug build but for iOS. 
+
+All iOS builds require your iOS developer certificates to be set up in order to build successfully. If you're on a Business Plan we'll take care of this process for you (email us to arrange this). For Agency/Reseller customers you can follow the Bitrise Workflow docs to set up your certificates on Bitrise or you can get us to handle the certs for you via our Agency Certs Request Form. Once the build completes you'll be emailed a link to the IPA you can use to install on your approved iOS devices. Agency/Reseller customers can also access the link from Bitrise directly
+
+### Key Features & Notes
+
+- iOS Certificates Required.
+- IPA file can be installed directly to your device
+- Can only be installed by iOS devices added to your Apple Developer Account. 
+- Approved devices are stored within the certificates so adding additional devices requires new certificates be added to Bitrise. See: Adding iOS Devices for Testing
+- Debuggable - Allows you to debug the app running on your device to inspect CSS, troubleshoot console errors and more. See Mobile Debugging
+- Push Notifications will not work
+
+## Android and iOS Debug
+
+This is a convenience build that combines the Android & iOS Debug builds. You'll need the iOS certs setup as described above. Once completed you'll be emailed install links for both the Android APK & the iOS IPA files.
+
+## iOS Ad Hoc
+
+A variation of the iOS Debug build that uses your distribution certificate instead of your development certificate. This removes the ability to debug the app but means that push notifications work normally. 
+
+All iOS builds require your iOS developer certificates to be set up in order to build successfully. If you're on a Business Plan we'll take care of this process for you (email us to arrange this). For Agency/Reseller customers you can follow the Bitrise Workflow docs to set up your certificates on Bitrise or you can get us to handle the certs for you via our Agency Certs Request Form. Once the build completes you'll be emailed a link to the IPA you can use to install on your approved iOS devices. Agency/Reseller customers can also access the link from Bitrise directly
+
+### Key Features & Notes
+
+- iOS Certificates Required.
+- IPA file can be installed directly to your device
+- Can only be installed by iOS devices added to your Apple Developer Account. 
+- Approved devices are stored within the certificates so adding additional devices requires new certificates be added to Bitrise. See: Adding iOS Devices for Testing
+- Not Debuggable
+- Push Notifications work
+
+## Submit to iOS App Store
+
+This build generates the production IPA build and sends it to your App Store Connect account. **This doesn't automatically release the new version**, it simple sends the build to your account where you can then either assign it to TestFlight or a new version release.
+
+All iOS builds require your iOS developer certificates to be set up in order to build successfully. If you're on a Business Plan we'll take care of this process for you (email us to arrange this). For Agency/Reseller customers you can follow the Bitrise Workflow docs to set up your certificates on Bitrise or you can get us to handle the certs for you via our Agency Certs Request Form. Once the build completes you'll be emailed a link to the IPA you can use to install on your approved iOS devices
+
+### Key Features & Notes
+
+- iOS Certificates Required.
+- IPA file is sent to your App Store Connect Account and can't be installed directly
+- Once in App Store Connect you can either assign it to TestFlight or a new App Store version 
+- TestFlight allows you to invite testers via email and doesn't require adding UDIDs like the debug/adhoc builds
+- Not Debuggable
+- Push Notifications work
+
+## Submit to Google Play
+
+This build generates the production APK build for release on Google Play. The behaviour of this build is different for new apps vs updates. If this is a brand new app the build will email you the APK file which you can submit to Google Play as part of your initial app launch. For a full guide on that see Your first release on Google Play. If you've got your app live in Google Play and everything is setup, this build will take your new APK version and submit it to Google Play as a new version automatically. No further action is required to release the new version.
+
+Google Play builds require a Keystore to build along with a Google Play Services API Key for automatic update deployments. If you're on a Business Plan we'll take care of this process for you (email us to arrange this). For Agency/Reseller customers you can follow the Bitrise Workflow docs to set up your certificates on Bitrise or you can get us to handle the certs for you via our Agency Certs Request Form. Once the build completes you'll be emailed a link to the IPA you can use to install on your approved iOS devices
+
+### Key Features & Notes
+
+- Google Play Services API Key required for automatic update deployment
+- APK file is signed with your Google Play keystore and is not for manual installation
+- Not Debuggable
+- Push Notifications work

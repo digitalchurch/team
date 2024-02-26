@@ -1,0 +1,30 @@
+---
+title: First Android Build
+sidebar_position: 12
+---
+
+# Submit the First Android Build
+
+Once you have setup the bitrise workflow, you must manually upload the first build to your Google Play Console.
+
+## Run build in AppPresser
+
+Visit the Build & Preview tab on the AppPresser Customizer and run the "Submit to Google Play" build.
+
+## Download the Latest Build
+
+When the build is ready, you will receive an email from AppPresser with instructions to download. Here are the instructions:
+
+1. From your Dashboard, click "Click to get Latest Build" to access and download your signed.aab file.
+2. Visit your [Google Play console](https://play.google.com/apps/publish), and go to your app store listing.
+3. Click Production => Create new release, and upload your signed .aab. For a more detailed guide on this process check out our [full guide here](https://docs.apppresser.com/article/655-your-first-release-on-google-play).
+
+## Upload the Build to Google Play Console
+
+Upload the APK in the Google Play Console under **Testing > Internal Testing**
+
+:::note Signing Key
+If you are asked for a Signing Key, you should select: **Let Google manage and protect your app signing key (recommended)**
+:::
+
+Download the .aab file that is emailed to you, and manually upload your Play Store production release. Only the first release needs to be uploaded manually, subsequent releases can be automated.
