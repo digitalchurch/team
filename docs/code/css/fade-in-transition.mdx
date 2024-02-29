@@ -1,0 +1,36 @@
+---
+title: Scroll-Based Fade in Transition
+---
+
+# Simple Scroll-Based Fade in Transition
+
+Use this CSS and add the class to what you want to fade in!
+
+```css
+@media (prefers-reduced-motion: no-preference) {
+
+    .custom-fade-in {
+        animation: custom-fade-in linear forwards;
+        animation-timeline: view();
+        animation-range: entry;
+    }
+
+    @keyframes custom-fade-in {
+
+    0% {
+        opacity: 0;
+        transform: translatey(400px)
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translatey(0px)
+        }
+
+    }
+}
+```
