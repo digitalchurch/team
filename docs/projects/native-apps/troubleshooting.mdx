@@ -1,0 +1,24 @@
+---
+title: Trobleshooting
+sidebar_position: 99
+---
+
+# Troubleshooting
+
+This document outlines common issues with ways to troubleshoot and solve them.
+
+## Blank Pages on in-app Links
+
+Sometimes we will run into issues with blank pages popping up in the in-app browser when we are trying to set up .push-page links in the app. The issue is using relative links (i.e. /events) rather than absolute links (like https://yourdigial.church/events). Here's a video showing this solution in detail:
+
+import ReactPlayer from 'react-player';
+
+<div className='player-wrapper'>
+<ReactPlayer url="https://player.vimeo.com/video/935464947?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+    width="100%"
+    height="100%"
+    controls={true}
+    playing={true}
+    muted={true}
+     />
+</div>
