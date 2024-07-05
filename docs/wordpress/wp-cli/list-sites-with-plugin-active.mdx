@@ -1,0 +1,19 @@
+---
+title: Sites with Plugin Active
+---
+
+# Generate a List of All Sites on a Multisite Network that have a specific plugin active.
+
+### Prerequisite
+
+The CLI package from Ian Dunn **wp-cli-plugin-active-on-sites** must be active first. You can find the repo here: https://github.com/iandunn/wp-cli-plugin-active-on-sites
+
+To install it, just SSH into the wordpress installation root folder (example: /www/digitalchurch.app/htdocs) and run the command `wp package install iandunn/wp-cli-plugin-active-on-sites`. Once installed, you can run the command below to generate a list of all sites with a specific plugin active.
+
+### Generate List
+
+```bash
+wp plugin active-on-sites <plugin_slug>
+```
+
+You'll need to know the plugin slug, which is the directory that the plugin is in inside the `/wp-content/plugins/` directory. For example, the askimet plugin is in `/wp-content/plugins/askimet/`, so you would run the command `wp plugin active-on-sites askimet`
