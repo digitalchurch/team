@@ -1,0 +1,26 @@
+---
+title: Setup WPMT Git Repo
+---
+
+# Setting up a WPMT Github Repo using GridPane
+
+The github repo should be downloaded from GridPane's full git repo template. The .gitignore file needs to be edited right away to make sure that the repo doesn't end up with files that it doesn't need.
+
+### .gitignore
+
+```
+# Ignore the docker-compose.yml file
+docker-compose.yml
+
+# Ignore the wp-congig.php files
+wp-config.php
+wp-config-sample.php
+
+# Ignore MacOS .DS_Store in all directories
+**/.DS_Store
+.DS_Store
+wp-content/.DS_Store
+
+# Ingore the entire uploads directory
+wp-content/uploads/
+```
