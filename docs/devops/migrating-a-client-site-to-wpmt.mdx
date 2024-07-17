@@ -1,0 +1,33 @@
+---
+title: Migrating to WPMT
+slug: migrating-to-wpmt
+sidebar_position: 10
+---
+
+# Migrating from WordPress Multisite to WordPress Multitenancy
+
+Migrating from Multisite (WPMU) to Multitenancy (WPMT) is a delicate process. This is a very specific process that must be followed exactly to make sure nothing goes wrong. Whenever possible, we will use wp-cli to keep things as efficient as possible.
+
+## Migrate from Multisite to Single Site Installation
+
+### 1. Put the source multisite site in Multisite Maintenance Mode
+
+### 2. Use WP All-in-One Migration to backup site to new server
+
+### 3. Access the new install via hosts file
+
+### 4. Restore the backup into the single Installation
+
+## Migrate from Single Installation to WPMT
+
+### 1. In GridPane, access the single installation site editor.
+
+### 2. in the clone tab, clone the site to the WPMT server.
+
+### 3. Activate plugins on new server
+
+### 4. Setup SMTP via Postmark
+
+### 5. Run tests on new installation
+
+### 6. Check all DNS and Hosts File edits
