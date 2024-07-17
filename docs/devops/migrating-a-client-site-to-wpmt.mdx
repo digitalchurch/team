@@ -8,26 +8,110 @@ sidebar_position: 10
 
 Migrating from Multisite (WPMU) to Multitenancy (WPMT) is a delicate process. This is a very specific process that must be followed exactly to make sure nothing goes wrong. Whenever possible, we will use wp-cli to keep things as efficient as possible.
 
-## Migrate from Multisite to Single Site Installation
+## Backup the Multisite Installation using All-in-One WP Migration
 
 ### 1. Put the source multisite site in Multisite Maintenance Mode
 
-### 2. Use WP All-in-One Migration to backup site to new server
+The wp-cli command below will activate the Multisite Maintenance Mode plugin. Be sure to replace the `{site.url}` with the domain of the site you are moving.
 
-### 3. Access the new install via hosts file
+```bash
+gp wp digitalchurch.app plugin activate multisite-maintenance-mode --url={site.url}
+```
+
+### 2. Disable the CDN Rewriting from Perfmatters
+
+Visit: `https://site.url/wp-admin/options-general.php?page=perfmatters#cdn`
+
+### 3. Use WP All-in-One Migration to backup site
+
+```bash
+gp wp digitalchurch.app ai1wm backup --exclude-inactive-themes --exclude-muplugins --exclude-plugins --exclude-inactive-plugins --exclude-cache --sites={site.url}
+```
+
+## Build a Fresh Single Installation
+
+### 1. In GridPane, build a new single install site on the development server
+
+https://my.gridpane.com/sites
+
+- Server: development
+- System User: Autocreate new user
+- WP Users: GridPane Default WP Admin Only
+- Bundles: None
+- PHP Version: 7.4
+- PHP Process Management: Dynamic
+- Server Caching: Redis Object & Page
+- WAF: 7G
+- SMTP Integration: Sendgrid
+- SSL: AutoSSL
+- DNS API Integration: Cloudflare
+- Local Backups: Daily
+- Remote Backups: Weekly
+- Git Integration: digitalchurch-wordpress
+- Git Branch: main
+
+### 2. Create a Backup Directory
+
+```bash
+mkdir {site.url}/htdocs/wp-content/ai1wm-backups/
+cd {site.url}/htdocs/wp-content/ai1wm-backups/
+```
+
+### 3. Activate All-In-One WP Migration
+
+```bash
+gp wp {site.url} plugin activate all-in-one-wp-migration
+gp wp {site.url} plugin activate all-in-one-wp-migration-multisite-extension
+```
+
+### 3. Move the backup to the new single site install
+
+Move the backup file to the new single site install via FTP. Set the directory permissions to 0777 for the backups and storage folders.
 
 ### 4. Restore the backup into the single Installation
 
-## Migrate from Single Installation to WPMT
+Restore the backup. Start by listing the backups.
+
+```bash
+gp wp {site.url} ai1wm list-backups
+```
+
+Then copy the backup name and restore it with this command.
+
+```bash
+gp wp {site.url} ai1wm restore {backup-name}
+```
+
+## Clone from Single Installation to WPMT
 
 ### 1. In GridPane, access the single installation site editor.
 
 ### 2. in the clone tab, clone the site to the WPMT server.
 
-### 3. Activate plugins on new server
+### 3. Check active plugins on new server
 
-### 4. Setup SMTP via Postmark
+Run this command on the source multisite to see what plugins are active on that site.
 
-### 5. Run tests on new installation
+```bash
+gp wp digitalchurch.app plugin list --status=active,active-network --format=csv --fields=name --url={site.url}
+```
 
-### 6. Check all DNS and Hosts File edits
+Then run this command on the multitenant install to see if the activate the same plugins.
+```bash
+gp wp {site.url} plugin activate {paste-list-here}
+```
+
+Tip: You can use AI to build the new command like this:
+
+```
+can you write a gridpane wp-cli command like this, but adding in the list of plugins I need to paste? The site.url is sconaz.org
+gp wp {site.url} plugin activate {space-separated-list-here}
+```
+
+### 4. Change your hosts file to check the site and finish setup.
+
+- Go to Settings > Beaver Builder and set up the white labeling. `/wp-content/mu-plugins/admin/assets/DigitalChurchFavicon.svg`
+- Setup SMTP via Postmark
+- Run tests on new installation
+
+### 6. Change the DNS and Issue an SSL Certificate
