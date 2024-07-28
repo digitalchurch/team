@@ -1,0 +1,124 @@
+---
+title: WP-CLI in Docker
+slug: wp-cli-in-docker
+sidebar_position: 10
+---
+
+# Local WP-CLI in Docker
+
+wp-cli requires some extra commands when working with it in a docker environment, which is how we work locally with wordpress.
+
+Yes, when you are working within a Dockerized environment, you typically need to use `docker-compose exec wordpress` (or the appropriate service name) to run WP-CLI commands inside the WordPress container. This ensures that the commands are executed within the context of the container where WordPress and its dependencies are running.
+
+### Example:
+
+```bash
+wp cache flush
+```
+
+To run the above command in docker, you need to do the following:
+
+```bash
+docker-compose exec wordpress wp cache flush --allow-root
+```
+
+### Simplifying the Command Execution
+
+To simplify running WP-CLI commands, you can create a shell alias or a script that wraps the `docker-compose exec` command. Here are a few methods to make it easier:
+
+#### Method 1: Creating a Shell Alias
+
+You can create a shell alias in your `.bashrc`, `.zshrc`, or equivalent shell configuration file:
+
+1. **Open your shell configuration file:**
+
+   ```sh
+   nano ~/.bashrc  # For bash users
+   nano ~/.zshrc   # For zsh users
+   ```
+
+2. **Add the alias:**
+
+   ```sh
+   alias dwp='docker-compose exec wordpress wp --allow-root'
+   ```
+
+3. **Reload your shell configuration:**
+
+   ```sh
+   source ~/.bashrc  # For bash users
+   source ~/.zshrc   # For zsh users
+   ```
+
+4. **Use the alias:**
+
+   Now you can use `dwp` as a shortcut for running WP-CLI commands:
+
+   ```sh
+   dwp plugin list
+   dwp core update
+   dwp option get siteurl
+   ```
+
+#### Method 2: Creating a Shell Script
+
+You can create a shell script that wraps the `docker-compose exec` command:
+
+1. **Create a new script file:**
+
+   ```sh
+   touch wp-cli.sh
+   chmod +x wp-cli.sh
+   ```
+
+2. **Edit the script file:**
+
+   ```sh
+   nano wp-cli.sh
+   ```
+
+3. **Add the following content to the script:**
+
+   ```sh
+   #!/bin/bash
+   docker-compose exec wordpress wp --allow-root "$@"
+   ```
+
+4. **Use the script:**
+
+   Now you can use `./wp-cli.sh` to run WP-CLI commands:
+
+   ```sh
+   ./wp-cli.sh plugin list
+   ./wp-cli.sh core update
+   ./wp-cli.sh option get siteurl
+   ```
+
+#### Method 3: Using Docker Compose Overrides
+
+Alternatively, you can define an override in your `docker-compose.override.yml` to simplify running WP-CLI commands:
+
+1. **Create a `docker-compose.override.yml` file:**
+
+   ```yaml
+   version: '3.8'
+
+   services:
+     wordpress:
+       entrypoint: ["sh", "-c", "while :; do sleep 10; done"]
+       command: ["wp", "--allow-root"]
+   ```
+
+2. **Run WP-CLI commands:**
+
+   Now you can run WP-CLI commands using `docker-compose run`:
+
+   ```sh
+   docker-compose run --rm wordpress wp plugin list --allow-root
+   docker-compose run --rm wordpress wp core update --allow-root
+   docker-compose run --rm wordpress wp option get siteurl --allow-root
+   ```
+
+### Summary
+
+By using shell aliases, scripts, or Docker Compose overrides, you can simplify the process of running WP-CLI commands within your Dockerized WordPress environment. This can save you time and make managing your WordPress site more convenient. If you have any further questions or need additional assistance, feel free to ask.
