@@ -1,0 +1,82 @@
+---
+title: Contact Form Spam Blocker
+slug: contact-form-spam-blocker
+sidebar_position: 10
+---
+
+# Contact Form SPAM Blocker
+
+This is how we configure new server to block contact form SPAM like Eric Jones or other similar messages. We are using this article as our primary source: https://gridpane.com/kb/how-to-reduce-eric-jones-contact-form-spam/
+
+### 1. Create a Custom NGINX Config
+
+On Nginx you can create a server-wide config that will apply to all sites or a site-specific config.
+
+To create a server-wide config, run the following command:
+
+```bash
+cd ..;
+nano /etc/nginx/extra.d/blockspam-main-context.conf
+```
+
+### 2. Add Your Block SPAM Configuration
+
+Paste the following, and edit as necessary to target the correct URI for your website:
+
+```bash
+if ($request_uri ~* "(/contact/|/contact-us/|/visit/|/connection/|/blog/|/jesus/|/sermon/|/event/|/story/|/prayer/|/music/|/news/|/give/)") {
+    set $test A; 
+}
+if ($server_protocol ~* "(HTTP/1.0|HTTP/1.1|HTTP/1.2)") { 
+    set $test "${test}B"; 
+}
+if ($http_user_agent !~* "(Googlebot|Bingbot|DuckDuckBot|Facebot|cloudflare)" ) { 
+    set $test "${test}C"; 
+}
+if ($test = ABC) { 
+    return 403;
+}
+```
+
+Save the file with **CTRL+O** followed by **Enter**, and then **CTRL+X** to exit nano.
+
+This states that if: 
+
+1. the URI matches our contact form page/s
+2. and is requested over HTTP/1.0/1.1./1.2
+3. and is NOT one of the specified user agents
+4. then return a 403 forbidden response. 
+
+Here is a list of pages we are blocking on:
+
+- Contact
+- Plan a visit
+- Connect Cards
+- Blog Posts
+- Meet Jesus
+- Sermons
+- Events
+- Stories
+- Prayer Requests
+- Music Auditions
+- Giving Forms
+
+### 3. Check and Reload NGINX
+
+Check the Nginx configuration file with:
+
+```bash
+nginx -t
+```
+
+If no errors are returned, reload Nginx with:
+
+```bash
+gp ngx reload
+```
+
+Nginx will now block Eric Jones spam, all other types of junk on your contact pages.
+
+## Site Specific Blocks
+
+The above configuration applies to the entire server, but we can also set up similar configurations for site-specific needs.
