@@ -53,15 +53,16 @@ https://my.gridpane.com/sites
 ### 2. Create a Backup Directory
 
 ```bash
-mkdir {site.url}/htdocs/wp-content/ai1wm-backups/
-cd {site.url}/htdocs/wp-content/ai1wm-backups/
+mkdir ~/www/{{site.url}}/htdocs/wp-content/ai1wm-backups/;
+chmod 0777 ~/www/{{site.url}}/htdocs/wp-content/ai1wm-backups/;
+chmod 0777 ~/www/{{site.url}}/htdocs/wp-content/plugins/all-in-one-wp-migration/storage/
 ```
 
 ### 3. Activate All-In-One WP Migration
 
 ```bash
-gp wp {site.url} plugin activate all-in-one-wp-migration
-gp wp {site.url} plugin activate all-in-one-wp-migration-multisite-extension
+gp wp {{site.url}} plugin activate all-in-one-wp-migration
+gp wp {{site.url}} plugin activate all-in-one-wp-migration-multisite-extension
 ```
 
 ### 3. Move the backup to the new single site install
@@ -73,13 +74,13 @@ Move the backup file to the new single site install via FTP. Set the directory p
 Restore the backup. Start by listing the backups.
 
 ```bash
-gp wp {site.url} ai1wm list-backups
+gp wp {{site.url}} ai1wm list-backups
 ```
 
 Then copy the backup name and restore it with this command.
 
 ```bash
-gp wp {site.url} ai1wm restore {backup-name}
+gp wp {{site.url}} ai1wm restore {{backup-name}}
 ```
 
 ## Clone from Single Installation to WPMT
@@ -93,19 +94,19 @@ gp wp {site.url} ai1wm restore {backup-name}
 Run this command on the source multisite to see what plugins are active on that site.
 
 ```bash
-gp wp digitalchurch.app plugin list --status=active,active-network --format=csv --fields=name --url={site.url}
+gp wp digitalchurch.app plugin list --status=active,active-network --format=csv --fields=name --url={{site.url}}
 ```
 
 Then run this command on the multitenant install to see if the activate the same plugins.
 ```bash
-gp wp {site.url} plugin activate {paste-list-here}
+gp wp {{site.url}} plugin activate {{paste-list-here}}
 ```
 
 Tip: You can use AI to build the new command like this:
 
 ```
 can you write a gridpane wp-cli command like this, but adding in the list of plugins I need to paste? The site.url is sconaz.org
-gp wp {site.url} plugin activate {space-separated-list-here}
+gp wp {{site.url}} plugin activate {{space-separated-list-here}}
 ```
 
 ### 4. Change your hosts file to check the site and finish setup.
