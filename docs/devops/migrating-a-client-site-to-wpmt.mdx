@@ -12,10 +12,10 @@ Migrating from Multisite (WPMU) to Multitenancy (WPMT) is a delicate process. Th
 
 ### 1. Put the source multisite site in Multisite Maintenance Mode
 
-The wp-cli command below will activate the Multisite Maintenance Mode plugin. Be sure to replace the `{site.url}` with the domain of the site you are moving.
+The wp-cli command below will activate the Multisite Maintenance Mode plugin. Be sure to replace the `{{site.url}}` with the domain of the site you are moving.
 
 ```bash
-gp wp digitalchurch.app plugin activate multisite-maintenance-mode --url={site.url}
+gp wp digitalchurch.app plugin activate multisite-maintenance-mode --url={{site.url}}
 ```
 
 ### 2. Disable the CDN Rewriting from Perfmatters
@@ -24,9 +24,27 @@ Visit: `https://site.url/wp-admin/options-general.php?page=perfmatters#cdn`
 
 ### 3. Use WP All-in-One Migration to backup site
 
+Digital Church: https://digitalchurch.app/wp-admin/network/admin.php?page=ai1wm_export   
+Blackline Branding: https://blackline.limited/wp-admin/network/admin.php?page=ai1wm_export
+
 ```bash
-gp wp digitalchurch.app ai1wm backup --exclude-inactive-themes --exclude-muplugins --exclude-plugins --exclude-inactive-plugins --exclude-cache --sites={site.url}
+gp wp digitalchurch.app ai1wm backup --exclude-inactive-themes --exclude-muplugins --exclude-plugins --exclude-inactive-plugins --exclude-cache --sites={{site.url}}
 ```
+
+- □ Protect this backup with a password
+- □ Do not export spam comments
+- □ Do not export post revisions
+- **✅ Do not export media library (files)**
+- **✅ Do not export themes (files)**
+- **✅ Do not export inactive themes (files)**
+- **✅ Do not export must-use plugins (files)**
+- **✅ Do not export plugins (files)**
+- **✅ Do not export inactive plugins (files)**
+- **✅ Do not export cache (files)**
+- □ Do not export database (sql)
+- □ Do not replace email domain (sql)
+- □ Do not include the selected files
+- □ Do not include the selected database tables
 
 ## Build a Fresh Single Installation
 
