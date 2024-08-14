@@ -133,16 +133,17 @@ gp wp {{site.url}} plugin activate {{space-separated-list-here}}
 - Setup SMTP via Postmark
 - Run tests on new installation
 
-### 6. Change the DNS and Issue an SSL Certificate
+### 5. Change the DNS and Issue an SSL Certificate
 
-### 7. Check Plugin Settings
+### 6. Check Plugin Settings
 
 Some specific plugin settings we need to check or set in this new environment are below.
 
-1. Beaver Builder
+#### Beaver Builder
 
-Make sure the branding settings are set as outlined here: [Beaver Builder Branding](/wordpress/plugins/beaver-builder/branding)
+Make sure the branding settings are set as outlined here: [Beaver Builder Branding](/wordpress/plugins/beaver-builder/branding)   
+`/wp-content/mu-plugins/admin/assets/DigitalChurchFavicon.svg`
 
-2. Fluent SMTP
+#### Fluent SMTP
 
 Make sure the client domain is added as a sending address in Postmark and working in FluentSMTP.
