@@ -46,36 +46,48 @@ Enter the CLI via terminal on the server you wish to update and navigate to the 
 
 ### Theme Updates
 
-```bash
+```bash title="via wp-cli"
+wp theme update --all --dry-run
+```
+
+```bash title="via GridPane"
 gp wp digitalchurch.app theme update --all --dry-run
+```
+
+```bash title="via Docker"
+docker-compose exec wordpress wp theme update --all --allow-root --dry-run
 ```
 
 ### Plugin Updates
 
-```bash
+```bash title="via wp-cli"
+wp plugin update --all --dry-run
+```
+
+```bash title="via GridPane"
 gp wp digitalchurch.app plugin update --all --dry-run
 ```
+
+```bash title="via Docker"
+docker-compose exec wordpress wp plugin update --all --allow-root --dry-run
+```
+
 ### Core Update
 
-```bash
+```bash title="check version"
 gp wp digitalchurch.app core version --extra
 ```
 
-```bash
+```bash title="check for updates"
 gp wp digitalchurch.app core check-update
 ```
-## Run Updates
 
-```bash
-gp wp digitalchurch.app theme update --all
-```
-
-```bash
-gp wp digitalchurch.app plugin update --all
-```
-
-```bash
+```bash title="Update Core via GridPane"
 gp wp digitalchurch.app core update
+```
+
+```bash title="Update Core via Docker"
+docker-compose exec wordpress wp core update --allow-root
 ```
 
 ## Clear the Caches
