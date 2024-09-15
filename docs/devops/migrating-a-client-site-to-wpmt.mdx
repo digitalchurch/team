@@ -8,7 +8,9 @@ sidebar_position: 10
 
 Migrating from Multisite (WPMU) to Multitenancy (WPMT) is a delicate process. This is a very specific process that must be followed exactly to make sure nothing goes wrong. Whenever possible, we will use wp-cli to keep things as efficient as possible.
 
-## Build a New Staging Site on the Development Server
+## Build a Fresh Single Installation
+
+### 1. Build a Staging Site on a Development Server in GridPane
 
 https://my.gridpane.com/sites
 
@@ -28,15 +30,44 @@ https://my.gridpane.com/sites
 - Git Integration: digitalchurch-wordpress
 - Git Branch: main
 
+### 2. Activate All-in-One WP Migration & Prep Directories
 
-## Backup the Multisite Installation using All-in-One WP Migration
+```bash
+gp wp {{site.url}} plugin activate all-in-one-wp-migration;
+gp wp {{site.url}} plugin activate all-in-one-wp-migration-multisite-extension;
+mkdir ~/www/{{site.url}}/htdocs/wp-content/ai1wm-backups/;
+chmod 0777 ~/www/{{site.url}}/htdocs/wp-content/ai1wm-backups/;
+chmod 0777 ~/www/{{site.url}}/htdocs/wp-content/plugins/all-in-one-wp-migration/storage/
+```
+
+### 3. Move the backup to the new single site install
+
+Move the backup file to the new single site install via FTP.
+
+### 4. Restore the backup into the single Installation
+
+Login to the staging site by changing your hosts file. Restore the backup. Alternatively, you can use the commands below to restore via SSH.
+
+```bash
+gp wp {{site.url}} ai1wm list-backups
+gp wp {{site.url}} ai1wm list-backups
+```
+
+Then copy the backup name and restore it with this command.
+
+```bash
+gp wp {{site.url}} ai1wm restore {{backup-name}}
+gp wp {{site.url}} ai1wm restore {{backup-name}}
+```
+
+## Migrate the Database using All-in-One WP Migration
 
 ### 1. Put the source multisite site in Multisite Maintenance Mode
 
-The wp-cli command below will activate the Multisite Maintenance Mode plugin. Be sure to replace the `{{site.url}}` with the domain of the site you are moving.
+The wp-cli command below will activate the Multisite Maintenance Mode plugin. Be sure to replace the `{site.url}` with the domain of the site you are moving.
 
 ```bash
-gp wp digitalchurch.app plugin activate multisite-maintenance-mode --url={{site.url}}
+gp wp digitalchurch.app plugin activate multisite-maintenance-mode --url={site.url}
 ```
 
 ### 2. Disable the CDN Rewriting from Perfmatters
@@ -45,69 +76,27 @@ Visit: `https://site.url/wp-admin/options-general.php?page=perfmatters#cdn`
 
 ### 3. Use WP All-in-One Migration to backup site
 
-Digital Church: https://digitalchurch.app/wp-admin/network/admin.php?page=ai1wm_export   
-Blackline Branding: https://blackline.limited/wp-admin/network/admin.php?page=ai1wm_export
-
 ```bash
-gp wp digitalchurch.app ai1wm backup --exclude-inactive-themes --exclude-muplugins --exclude-plugins --exclude-inactive-plugins --exclude-cache --sites={{site.url}}
+gp wp digitalchurch.app ai1wm backup --exclude-inactive-themes --exclude-muplugins --exclude-plugins --exclude-inactive-plugins --exclude-cache --sites={site.url}
 ```
 
-- □ Protect this backup with a password
-- □ Do not export spam comments
-- □ Do not export post revisions
-- **✅ Do not export media library (files)**
-- **✅ Do not export themes (files)**
-- **✅ Do not export inactive themes (files)**
-- **✅ Do not export must-use plugins (files)**
-- **✅ Do not export plugins (files)**
-- **✅ Do not export inactive plugins (files)**
-- **✅ Do not export cache (files)**
-- □ Do not export database (sql)
-- □ Do not replace email domain (sql)
-- □ Do not include the selected files
-- □ Do not include the selected database tables
+## Migrate the Files via GoodSync
 
-## Migrate from Multisite to Single Staging
+### 1. Setup a GoodSync job 
 
-### 1. Create a Backup Directory
+Sync all files from the `/wp-content/uploads/sites/{{id}}/` directory on the multisite to the `/wp-content/uploads/` directory on the staging installation.
 
-```bash
-mkdir ~/www/{{site.url}}/htdocs/wp-content/ai1wm-backups/;
-chmod 0777 ~/www/{{site.url}}/htdocs/wp-content/ai1wm-backups/;
-chmod 0777 ~/www/{{site.url}}/htdocs/wp-content/plugins/all-in-one-wp-migration/storage/
-```
+### 2. Exclude folders that contain cache or unused files.
 
-### 2. Activate All-In-One WP Migration
+Only include the upload directories that are year numbers.
 
-```bash
-gp wp {{site.url}} plugin activate all-in-one-wp-migration
-gp wp {{site.url}} plugin activate all-in-one-wp-migration-multisite-extension
-```
-
-### 3. Move the backup to the new single site install
-
-- Move the backup file to the new single site install via FTP.
-- Copy the uploads folder from the WPMU `/uploads/sites/{id}/` to the `/uploads/` directory of the new single install.
-
-### 4. Restore the backup into the single Installation
-
-Restore the backup. Start by listing the backups.
-
-```bash
-gp wp {{site.url}} ai1wm list-backups
-```
-
-Then copy the backup name and restore it with this command.
-
-```bash
-gp wp {{site.url}} ai1wm restore {{backup-name}}
-```
-
-## Clone from Single Installation to WPMT
+## Clone from Staging to WPMT
 
 ### 1. In GridPane, access the single installation site editor.
 
 ### 2. in the clone tab, clone the site to the WPMT server.
+
+You can watch the clone progress using the GP Clone Log from the source staging site.
 
 ### 3. Check active plugins on new server
 
