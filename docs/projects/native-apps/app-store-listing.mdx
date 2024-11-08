@@ -4,31 +4,96 @@ sidebar_position: 7
 
 # App Store Listing
 
-Apple App Store Connect: [https://appstoreconnect.apple.com/](https://appstoreconnect.apple.com/)
+import ReactPlayer from 'react-player';
+
+<div className='player-wrapper'>
+<ReactPlayer url="https://www.youtube.com/watch?v=jI55mlFFwz4"
+    width="100%"
+    height="100%"
+    controls={true}
+    playing={true}
+    muted={true}
+     />
+</div>
+
+Login to Apple App Store Connect: [https://appstoreconnect.apple.com/apps](https://appstoreconnect.apple.com/apps)
 
 Help: [https://docs.apppresser.com/article/634-create-app-store-listings](https://docs.apppresser.com/article/634-create-app-store-listings)
 
+## Register an App ID
+
+### 1. Retrieve your Bundle ID from AppPresser
+
+Login to AppPresser and find your Bundle ID in the **Dashboard**.
+
+![AppPresser Dashboard](./img/retrieve-your-app-bundle-id.png)
+
+### 2. Register a New Bundle ID with Apple
+
+Register a new Bundle ID in [Certificates, Identifiers & Profiles](https://developer.apple.com/account/resources/identifiers/bundleId/add/) in your Developer Account. Use the Bundle ID from AppPresser, and be sure to select **Push Notifications** under **Capabilities**.
+
+![Apple Developer Account](./img/set-bundle-id.png)
+
+## Add a New App
+
+### 1. Add a New App in App Store Connect.
+
+Visit the [Apple App Store Connect](https://appstoreconnect.apple.com/apps) to register a new App using the Bundle ID you just created. Click the plus button in the top left to add a new app.
+
+![Apple App Store Connect](./img/add-new-app.png)
+
+### 2. Complete the App Information
+
+![Apple App Store Connect](./img/new-app-info.png)
+
+Complete the following fields:
+
+- **Platforms:** iOS
+- **Name:** The name of your app
+- **Primary Language:** English (U.S.)
+- **Bundle ID:** The Bundle ID you created in the previous step
+- **SKU:** The SKU of your app (This can be anything you want it to be.)
+- **User Access:** Full Access
+
+The click **Create**.
+
 ## Prepare for Submission
 
-The following fields are required before submitting the app for review.
+### 1. Add Screenshots
 
-- You must provide copyright information for the app you are adding under **Prepare for Submission**.
-- You must choose a build in **Prepare for Submission**.
-- Upload the Screenshots that were generated in the previous guide.
-- Support URL
-- Keywords
-- Description
+Under **Previews & Screenshots** drag the screenshots you created in the previous guide into the **Screenshots** section.
 
-## App Information
+### 2. Add Metadata
 
-- You must select the level of frequency for each Apple content description in the Age Rating section in **App Information > General Information > Age Rating.**
-   - Most Church Apps should be NO for everything. Age Recommendation will probably be 4+. It is not "Made for Kids" and not "Restricted to 17+"
-- You must select a primary category of *Lifestyle* for your app in **App Information > General Information**.
-- You must set up Content Rights Information (No, it does not show third party...) in **App Information > General Information**.
+Complete the following fields:
 
-## Price & Availability
+- **Promotional Text:** A short description of the app that will be used in some promotional areas of the app store.
+- **Description:** A description of your app.
+- **Support URL:** The client's app page on their website.
+- **Keywords:** 5 keywords that describe your app.
+- **Copyright:** The copyright holder for the app. (The legal name of the church or organization.)
 
-- You must choose a price tier of $0.00 in **Pricing & Availability**.
+Click the **Save** button.
+
+### 3. General App Information
+
+You must select a primary category of *Lifestyle* for your app in **App Information > General Information**. Secondary category is optional.
+
+You must set up Content Rights Information (No, it does not show third party...) in **App Information > General Information**.
+
+Under the **Age Rating** section, click the **Set Age Rating** button.
+
+![Apple App Store Connect](./img/set-age-rating.png)
+
+Most of our clients should be **NONE** for everything.
+
+![Apple App Store Connect](./img/set-age-rating-2.png)
+
+It is not "Made for Kids" and not "Restricted to 17+"
+
+![Apple App Store Connect](./img/set-age-rating-3.png)
+
+Save your changes.
 
 ## App Privacy
 
@@ -40,3 +105,8 @@ Question: Do you or your third-party partners collect data from this app?
 
 Answer: **No, we do not collect data from this app**
 :::
+
+## Price & Availability
+
+- You must choose a price tier of $0.00 in **Pricing & Availability**.
+- Set the avaialble to **The United States and Canada**.
