@@ -1,0 +1,8 @@
+{
+  "label": "Auctria",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "We use Auctria to manage auctions for B Brave Foundation."
+  }
+}
