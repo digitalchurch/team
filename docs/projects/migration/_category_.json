@@ -1,6 +1,6 @@
 {
   "label": "Content Migration",
-  "position": 10,
+  "position": 3,
   "link": {
     "type": "generated-index",
     "description": "These are the processes we use for different situations when we do a content migration."
