@@ -14,25 +14,11 @@ Migrating from Multisite (WPMU) to Multitenancy (WPMT) is a delicate process. Th
 
 Check the DNS records in [Cloudflare](https://dash.cloudflare.com) to make sure you have access to the client's DNS and that they have `_acme-challenge` records in place for SSL certification.
 
-### 2. Build a Staging Site on a Development Server in GridPane
+### 2. Clone a Staging Site on a Development Server in GridPane
 
 https://my.gridpane.com/sites
 
-- Server: development
-- System User: Autocreate new user
-- WP Users: GridPane Default WP Admin Only
-- Bundles: None
-- PHP Version: 7.4
-- PHP Process Management: Dynamic
-- Server Caching: Redis Object & Page
-- WAF: 7G
-- SMTP Integration: Sendgrid
-- SSL: AutoSSL
-- DNS API Integration: Cloudflare
-- Local Backups: Daily
-- Remote Backups: Weekly
-- Git Integration: digitalchurch-wordpress
-- Git Branch: main
+- Clone from **start.digitalchurch.app** to client's domain or subdomain.
 
 ## Migrate the Database using All-in-One WP Migration
 
