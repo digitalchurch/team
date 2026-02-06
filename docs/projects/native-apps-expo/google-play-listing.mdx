@@ -1,0 +1,195 @@
+---
+sidebar_position: 5
+title: Google Play Listing
+---
+
+# Google Play Listing (Android)
+
+Guide for creating and maintaining Google Play Store listings for client apps.
+
+## Prerequisites
+
+- Google Play Developer account ($25 one-time)
+- Access to [Google Play Console](https://play.google.com/console)
+- App icon and feature graphic
+- Screenshots for phone and tablet
+
+## Create App in Play Console
+
+1. Go to [Google Play Console](https://play.google.com/console)
+2. Click **Create app**
+3. Fill in:
+   - **App name:** Client Church
+   - **Default language:** English (United States)
+   - **App or game:** App
+   - **Free or paid:** Free
+4. Accept declarations and click **Create app**
+
+## App Content Setup
+
+Complete the **Set up your app** checklist in the dashboard:
+
+### 1. Privacy Policy
+
+- **URL:** `https://clientchurch.com/privacy/`
+- Required before you can publish
+
+### 2. App Access
+
+Select: **All functionality is available without special access**
+
+(If app requires login, select the other option and provide test credentials)
+
+### 3. Ads
+
+Select: **No, my app does not contain ads**
+
+### 4. Content Rating
+
+Complete the IARC questionnaire:
+
+1. Click **Start questionnaire**
+2. **Email:** admin@dgtl.church
+3. **Category:** All Other App Types
+4. Answer **No** to all content questions for typical church apps
+5. **Result:** Everyone (E) rating
+
+### 5. Target Audience
+
+- **Target age:** 18 and over
+- **Appeals to children:** No
+
+### 6. News App
+
+Select: **No**
+
+### 7. COVID-19 Apps
+
+Select: **Not a COVID-19 app**
+
+### 8. Data Safety
+
+Answer questions about data collection:
+
+| Question | Typical Answer |
+|----------|----------------|
+| Collect or share data? | No (if no analytics/accounts) |
+| Data encrypted in transit? | Yes (HTTPS) |
+| Request data deletion? | N/A |
+
+### 9. Government Apps
+
+Select: **No**
+
+### 10. Financial Features
+
+Select: **No financial features** (unless app includes giving directly, not via web link)
+
+### 11. App Category
+
+- **Category:** Lifestyle
+- **Contact email:** admin@dgtl.church
+
+## Store Listing
+
+### Main Store Listing
+
+| Field | Requirements |
+|-------|--------------|
+| **App name** | Up to 30 characters |
+| **Short description** | Up to 80 characters |
+| **Full description** | Up to 4000 characters |
+
+**Example Short Description:**
+> Access sermons, groups, events and more from Client Church.
+
+**Example Full Description:**
+> Watch sermons from Client Church, check out available small groups, watch live services, and stay connected to the latest events at Client Church.
+
+### Graphics
+
+| Asset | Size | Notes |
+|-------|------|-------|
+| **App icon** | 512×512 PNG | 32-bit with alpha |
+| **Feature graphic** | 1024×500 PNG/JPG | Displayed at top of store listing |
+| **Phone screenshots** | Min 320px, max 3840px | 2-8 screenshots required |
+| **Tablet screenshots** | 7" and 10" sizes | Required if tablet-optimized |
+
+:::tip
+Use the same iPhone 6.5" screenshots for Android phones. Resize iPad screenshots for Android tablets.
+:::
+
+## Release Management
+
+### Internal Testing Track
+
+Best for initial testing:
+
+1. Go to **Testing → Internal testing**
+2. Click **Create new release**
+3. Upload AAB file (from EAS Build)
+4. Add release notes
+5. Click **Review release** → **Start rollout**
+
+### Production Release
+
+1. Go to **Production**
+2. Click **Create new release**
+3. Upload AAB file
+4. Add release notes:
+   > What's new in this version:
+   > • Bug fixes and performance improvements
+5. Click **Review release**
+6. Click **Start rollout to Production**
+
+## Review Process
+
+- **Initial review:** 1-3 days for new apps
+- **Updates:** Usually within 24 hours
+- **Rejection reasons:** Check email for specific issues
+
+### Common Rejection Reasons
+
+| Issue | Solution |
+|-------|----------|
+| Privacy policy missing | Add valid privacy policy URL |
+| Screenshots show placeholder content | Use real app content |
+| Metadata mismatch | Ensure description matches app functionality |
+| Login required but no credentials | Provide test account or use App Access setting |
+
+## API Access for Automated Deployment
+
+To enable EAS Submit to automatically deploy to Play Store:
+
+### Create Service Account
+
+1. Go to **Setup → API access**
+2. Click **Create new service account**
+3. Follow the link to Google Cloud Console
+4. Create service account with **Service Account User** role
+5. Create JSON key and download
+
+### Grant Permissions
+
+1. Back in Play Console, click **Grant access** for the service account
+2. Set permission: **Release to production, exclude devices, and use Play App Signing**
+3. Add the app to the service account's app access
+
+### Configure EAS
+
+Add the JSON key path to `eas.json`:
+
+```json
+{
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./play-store-credentials.json",
+        "track": "internal"
+      }
+    }
+  }
+}
+```
+
+Store credentials securely — do not commit to git.

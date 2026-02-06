@@ -1,0 +1,189 @@
+---
+sidebar_position: 2.5
+title: WordPress Dashboard
+---
+
+# WordPress Dashboard Configuration
+
+All app configuration is managed from the church's WordPress admin. No separate portal needed.
+
+## Accessing App Settings
+
+Go to **Digital Church → Native App** in wp-admin to access all app configuration.
+
+## Settings Tabs
+
+### General Settings
+
+**Digital Church → Native App → General**
+
+| Setting | Description |
+|---------|-------------|
+| **App Name** | Display name in app stores and on device home screen |
+| **Bundle ID** | Unique identifier (e.g., `app.digitalchurch.clientname`) — cannot change after store submission |
+| **App Status** | Enable/disable app features while maintaining store presence |
+
+### Branding
+
+**Digital Church → Native App → Branding**
+
+| Setting | Description |
+|---------|-------------|
+| **App Icon** | 1024×1024 PNG — displayed on home screen and app stores |
+| **Splash Screen** | Loading screen shown when app launches |
+| **Primary Color** | Main brand color used throughout the app |
+| **Accent Color** | Secondary color for highlights and CTAs |
+| **Header Style** | Light or dark header with matching text |
+
+:::tip Color Selection
+Use the church's primary brand color for **Primary Color**. Test contrast with white text — this color is used for buttons and navigation.
+:::
+
+### Navigation
+
+**Digital Church → Native App → Navigation**
+
+Configure which tabs appear in the bottom navigation:
+
+| Tab | Content Source |
+|-----|----------------|
+| **Home** | Custom layout with featured content blocks |
+| **Sermons** | WordPress sermon post type |
+| **Events** | Events calendar (Tribe Events) |
+| **Groups** | Small groups directory |
+| **Giving** | Link to online giving (opens browser) |
+| **More** | Additional links, settings, about |
+
+**Customization options:**
+- Drag to reorder tabs
+- Toggle visibility for each tab
+- Set custom icons (optional)
+- Configure tab labels
+
+### Home Screen
+
+**Digital Church → Native App → Home**
+
+The home screen uses a block-based layout:
+
+| Block Type | Description |
+|------------|-------------|
+| **Hero** | Large featured image with overlay text |
+| **Featured Content** | Highlighted sermon, event, or page |
+| **Quick Links** | Grid of icon links to app sections |
+| **Live Stream** | Shows live indicator when streaming |
+| **Recent Sermons** | Latest sermon cards |
+| **Upcoming Events** | Next few events |
+| **Custom HTML** | Embedded content or custom layouts |
+
+Drag blocks to reorder. Click to configure each block's content.
+
+### Push Notifications
+
+**Digital Church → Native App → Push Notifications**
+
+Send and schedule push notifications:
+
+1. Click **New Notification**
+2. Enter title (50 chars recommended)
+3. Enter message body (150 chars recommended)
+4. Optionally add a deep link
+5. Choose **Send Now** or **Schedule**
+6. Click **Send**
+
+**Notification History** shows all sent notifications with delivery stats.
+
+### Devices
+
+**Digital Church → Native App → Devices**
+
+View registered devices:
+
+| Column | Description |
+|--------|-------------|
+| **Platform** | iOS or Android |
+| **App Version** | Which build the user has installed |
+| **Last Active** | When the device last contacted the server |
+| **Push Token** | Device token for notifications (truncated) |
+
+Use this to troubleshoot notification delivery issues.
+
+## Content Management
+
+### Sermons in the App
+
+Sermons from the WordPress sermon post type automatically appear in the app:
+
+- **Video sermons** — Play inline with native video controls
+- **Audio sermons** — Play with background audio support
+- **Series** — Grouped by sermon series taxonomy
+- **Search** — Full-text search across sermon titles and descriptions
+
+### Events in the App
+
+Events from Tribe Events Calendar sync to the app:
+
+- **Upcoming events** — Sorted by date
+- **Event details** — Location, time, description
+- **Add to calendar** — Native calendar integration
+- **Registration** — Links to event registration page
+
+### Groups in the App
+
+Small groups from Ultimate Member Groups appear in the app:
+
+- **Group directory** — Browse and search
+- **Group details** — Description, meeting time, leader contact
+- **Join requests** — Request to join from the app
+- **Private content** — Member-only content for logged-in users
+
+## User Authentication
+
+### Login Flow
+
+The app uses WordPress authentication:
+
+1. User taps Login in the app
+2. Enters WordPress username/email and password
+3. App receives JWT token
+4. Token stored securely on device
+5. Subsequent requests include token for authenticated endpoints
+
+### Member Features
+
+Logged-in users can access:
+
+- Private group content
+- Personal profile editing
+- Saved/favorited content
+- Push notification preferences
+
+## API Configuration
+
+### REST API Endpoints
+
+The app communicates via WordPress REST API:
+
+| Endpoint | Purpose |
+|----------|---------|
+| `/wp-json/dc-app/v1/config` | App configuration (colors, tabs, etc.) |
+| `/wp-json/wp/v2/sermon` | Sermon list and details |
+| `/wp-json/wp/v2/tribe-events` | Events list and details |
+| `/wp-json/wp/v2/um_groups` | Groups list and details |
+| `/wp-json/dc-app/v1/push/register` | Register device for notifications |
+
+### Caching
+
+The app caches content locally:
+
+- **Config** — Cached for 1 hour, refreshed on app launch
+- **Content** — Cached for offline access, refreshed when online
+- **Media** — Images cached for 7 days
+
+### Webhook Notifications
+
+WordPress can notify the app of content changes:
+
+1. New sermon published → App receives push prompt
+2. Event updated → Cache invalidated
+3. Notification scheduled → Background job triggers delivery

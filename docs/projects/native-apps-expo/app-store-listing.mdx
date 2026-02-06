@@ -1,0 +1,136 @@
+---
+sidebar_position: 4
+title: App Store Listing
+---
+
+# App Store Listing (iOS)
+
+Guide for creating and maintaining iOS App Store listings for client apps.
+
+## Prerequisites
+
+- Apple Developer account enrolled in the Apple Developer Program
+- Access to [App Store Connect](https://appstoreconnect.apple.com)
+- App icon (1024×1024 PNG)
+- Screenshots for required device sizes
+
+## Register a Bundle ID
+
+### 1. Create Identifier in Apple Developer Portal
+
+1. Go to [Certificates, Identifiers & Profiles](https://developer.apple.com/account/resources/identifiers/list)
+2. Click **+** to register a new identifier
+3. Select **App IDs** → **App**
+4. Enter:
+   - **Description:** Client Church App
+   - **Bundle ID:** `app.digitalchurch.clientname` (Explicit)
+5. Under **Capabilities**, enable:
+   - ✅ Push Notifications
+   - ✅ Associated Domains (if using universal links)
+6. Click **Register**
+
+## Create App in App Store Connect
+
+1. Go to [App Store Connect](https://appstoreconnect.apple.com/apps)
+2. Click **+** → **New App**
+3. Fill in:
+   - **Platforms:** iOS
+   - **Name:** Client Church (as it appears on App Store)
+   - **Primary Language:** English (U.S.)
+   - **Bundle ID:** Select the ID you just created
+   - **SKU:** `clientchurch-ios` (internal reference)
+   - **User Access:** Full Access
+4. Click **Create**
+
+## App Information
+
+### Version Information
+
+In the **App Store** tab, fill out:
+
+| Field | Value |
+|-------|-------|
+| **Promotional Text** | Short tagline (170 chars max) — can be updated without new build |
+| **Description** | Full description of app features (4000 chars max) |
+| **Keywords** | Comma-separated, 100 chars total |
+| **Support URL** | `https://clientchurch.com/app-support/` |
+| **Marketing URL** | `https://clientchurch.com/app/` (optional) |
+
+### Screenshots
+
+Upload screenshots for each required device size:
+
+| Device | Size | Required |
+|--------|------|----------|
+| 6.7" iPhone | 1290×2796 | Yes |
+| 6.5" iPhone | 1284×2778 | Yes |
+| 5.5" iPhone | 1242×2208 | Optional |
+| 12.9" iPad Pro | 2048×2732 | If iPad supported |
+
+:::tip Screenshot Generation
+Use [Fastlane Snapshot](https://docs.fastlane.tools/actions/snapshot/) or [Screenshots Pro](https://screenshots.pro/) to automate screenshot generation across device sizes.
+:::
+
+### General App Information
+
+1. **App Information → Category:** Select **Lifestyle** as primary category
+2. **Content Rights:** "This app does not contain, show, or access third-party content"
+3. **Age Rating:** Complete the questionnaire
+   - All answers should be **None** for typical church apps
+   - Not "Made for Kids"
+   - Not restricted to 17+
+
+## App Privacy
+
+Apple requires privacy disclosure for all apps.
+
+1. Go to **App Privacy** section
+2. Answer: **"No, we do not collect data from this app"**
+   - If the app does collect data (analytics, user accounts), declare appropriately
+3. Add **Privacy Policy URL:** `https://clientchurch.com/privacy/`
+
+## Pricing & Availability
+
+1. **Price:** Free
+2. **Availability:** United States and Canada (or all territories)
+3. **Pre-Orders:** Typically disabled
+
+## App Review Information
+
+Provide contact info for Apple's review team:
+
+| Field | Value |
+|-------|-------|
+| **First Name** | Mark |
+| **Last Name** | Tenney |
+| **Phone** | (contact number) |
+| **Email** | mark@digitalchurch.com |
+
+If the app requires login, provide demo credentials.
+
+## Submitting for Review
+
+1. Ensure a build has been uploaded via EAS Submit or Transporter
+2. Select the build under **Build** section
+3. Complete all required fields (red indicators show missing items)
+4. Click **Add for Review**
+5. Click **Submit to App Review**
+
+### Review Timeline
+
+- **Standard review:** 24-48 hours typically
+- **Expedited review:** Request via [Apple's form](https://developer.apple.com/contact/app-store/?topic=expedite) for critical fixes
+
+## Post-Launch Updates
+
+For app updates:
+
+1. Click **+ Version or Platform** in App Store Connect
+2. Enter new version number (must be higher than current)
+3. Add "What's New" release notes
+4. Upload new build
+5. Submit for review
+
+:::note
+Promotional text can be updated anytime without a new build or review.
+:::

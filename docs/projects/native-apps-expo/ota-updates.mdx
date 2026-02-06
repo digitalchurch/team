@@ -1,0 +1,187 @@
+---
+sidebar_position: 7
+title: OTA Updates
+---
+
+# Over-the-Air (OTA) Updates
+
+Push JavaScript and asset updates to users without going through app store review.
+
+## How OTA Updates Work
+
+Expo's EAS Update allows you to push updates directly to users' devices. When the app launches, it checks for updates and downloads them in the background. The update applies on the next app restart.
+
+### What Can Be Updated OTA
+
+| Can Update | Cannot Update |
+|------------|---------------|
+| JavaScript code | Native modules |
+| React components | App permissions |
+| Images and assets | App icon |
+| Styling changes | Splash screen |
+| API endpoints | Build configuration |
+| Bug fixes | SDK version changes |
+
+## Publishing Updates
+
+### Basic Update
+
+```bash
+# Publish to all users on production channel
+eas update --branch production --message "Fix sermon playback bug"
+```
+
+### Platform-Specific Updates
+
+```bash
+# iOS only
+eas update --branch production --platform ios --message "Fix iOS keyboard issue"
+
+# Android only
+eas update --branch production --platform android --message "Fix Android back button"
+```
+
+### Preview Channel Updates
+
+For testing before production:
+
+```bash
+eas update --branch preview --message "Testing new events layout"
+```
+
+## Update Channels
+
+Configure update channels in `eas.json`:
+
+```json
+{
+  "build": {
+    "preview": {
+      "channel": "preview"
+    },
+    "production": {
+      "channel": "production"
+    }
+  }
+}
+```
+
+Each build profile connects to a specific update channel. Production builds receive production updates; preview builds receive preview updates.
+
+## Update Behavior
+
+### Default Behavior
+
+1. App launches and checks for updates
+2. If update available, downloads in background
+3. Update applies on next app restart
+4. User sees updated version
+
+### Forcing Immediate Updates
+
+For critical fixes, you can configure the app to require an update before proceeding:
+
+```javascript
+import * as Updates from 'expo-updates';
+
+async function checkForUpdates() {
+  const update = await Updates.checkForUpdateAsync();
+  if (update.isAvailable) {
+    await Updates.fetchUpdateAsync();
+    await Updates.reloadAsync(); // Immediately apply
+  }
+}
+```
+
+Use sparingly — forcing restarts can be disruptive.
+
+## Rollback
+
+If an update causes issues, you can rollback:
+
+```bash
+# View recent updates
+eas update:list
+
+# Rollback to previous update
+eas update:republish --group [previous-update-group-id]
+```
+
+Or publish a new update with the fix.
+
+## Monitoring Updates
+
+### View Update Status
+
+```bash
+# List recent updates
+eas update:list
+
+# View specific update details
+eas update:view [update-id]
+```
+
+### Expo Dashboard
+
+Monitor updates at [expo.dev](https://expo.dev):
+
+1. Go to your project
+2. Click **Updates**
+3. View rollout status, download counts, and errors
+
+## Best Practices
+
+### Testing Updates
+
+1. Always test updates on preview channel first
+2. Use a physical device, not just simulator
+3. Test the full update flow (download → restart → verify)
+
+### Update Frequency
+
+| Situation | Recommendation |
+|-----------|----------------|
+| Critical bug fix | OTA immediately |
+| Minor UI tweaks | Bundle with next build |
+| New features | New build (for marketing) |
+| Content changes | OTA is fine |
+
+### Versioning
+
+Keep track of what's in each update:
+
+```bash
+# Include meaningful messages
+eas update --branch production --message "v1.2.1 - Fix event timezone display"
+```
+
+## Limitations
+
+- **Native code changes require new build** — If you update Expo SDK, add native modules, or change permissions, you must submit a new build to the app stores.
+- **Update size** — Large updates (>50MB) may fail or be slow on poor connections. Keep updates lean.
+- **Offline users** — Users who don't open the app won't receive updates until they do.
+
+## Emergency Procedures
+
+### Critical Bug in Production
+
+1. Fix the bug locally
+2. Test on preview channel
+3. Push to production:
+   ```bash
+   eas update --branch production --message "HOTFIX: [description]"
+   ```
+4. Monitor Expo dashboard for rollout status
+5. If issues persist, rollback
+
+### Corrupted Update
+
+If an update breaks the app:
+
+1. Push a rollback immediately:
+   ```bash
+   eas update:republish --group [last-known-good-group-id]
+   ```
+2. Or push a new fix
+3. Affected users will recover on next app launch (if they can launch)
+4. Worst case: Submit emergency build to app stores

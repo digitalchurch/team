@@ -1,8 +1,8 @@
 {
-  "label": "Native Apps",
-  "position": 4,
+  "label": "Native Apps (Legacy)",
+  "position": 5,
   "link": {
     "type": "generated-index",
-    "description": "Learn how to build & deploy native applications."
+    "description": "⚠️ LEGACY: AppPresser-based documentation. For new apps, see Native Apps (Expo)."
   }
 }

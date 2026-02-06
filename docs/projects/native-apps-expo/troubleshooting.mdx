@@ -1,0 +1,208 @@
+---
+sidebar_position: 8
+title: Troubleshooting
+---
+
+# Troubleshooting
+
+Common issues and solutions for the Expo-based native app system.
+
+## Build Issues
+
+### EAS Build Fails
+
+**Check the build logs:**
+```bash
+eas build:list
+eas build:view [build-id]
+```
+
+**Common causes:**
+
+| Error | Solution |
+|-------|----------|
+| `Provisioning profile mismatch` | Regenerate credentials: `eas credentials` |
+| `Bundle identifier not found` | Create bundle ID in Apple Developer portal |
+| `SDK version mismatch` | Update `expo` package or check `app.json` |
+| `Out of memory` | Increase build resources in `eas.json` |
+| `Dependency resolution failed` | Delete `node_modules`, run `npm install` |
+
+### iOS Signing Issues
+
+```bash
+# View current credentials
+eas credentials --platform ios
+
+# Reset and regenerate
+eas credentials --platform ios
+# Select "Remove" then re-run build
+```
+
+### Android Keystore Issues
+
+EAS manages Android keystores automatically. To view:
+
+```bash
+eas credentials --platform android
+```
+
+If you need to use an existing keystore (migrating from AppPresser):
+
+```bash
+eas credentials --platform android
+# Select "Upload a keystore"
+```
+
+## App Not Connecting to WordPress
+
+### Check API Connectivity
+
+1. Verify WordPress site is accessible
+2. Check REST API is enabled: `https://site.com/wp-json/`
+3. Ensure Digital Church plugin is active
+4. Check environment variable is set correctly
+
+### CORS Issues
+
+If requests fail from the app but work in browser:
+
+1. Add the app's origin to WordPress CORS headers
+2. Check for security plugins blocking API requests
+
+### SSL Certificate Issues
+
+- Ensure WordPress has valid SSL certificate
+- Self-signed certs won't work on production builds
+- Use Let's Encrypt for free SSL
+
+## Push Notifications Not Working
+
+### iOS
+
+| Symptom | Check |
+|---------|-------|
+| No notifications received | APNs key uploaded to Firebase? |
+| Permission denied | User must allow notifications in iOS settings |
+| Works in dev, not production | Using production APNs certificate? |
+
+### Android
+
+| Symptom | Check |
+|---------|-------|
+| No notifications | `google-services.json` matches Firebase project? |
+| Notifications delayed | Battery optimization disabling background? |
+| Works on some devices | Check Android version compatibility |
+
+### WordPress Side
+
+1. Verify Firebase Server Key is configured
+2. Check WordPress cron is running (use WP Crontrol to verify)
+3. Look for errors in WordPress debug log
+
+## App Crashes
+
+### Get Crash Logs
+
+**From Expo:**
+```bash
+eas diagnostics
+```
+
+**From device:**
+- iOS: Xcode → Devices → View Device Logs
+- Android: `adb logcat`
+
+### Common Crash Causes
+
+| Cause | Solution |
+|-------|----------|
+| Null data from API | Add null checks in React components |
+| Memory leak | Check for unsubscribed listeners |
+| Native module error | Usually requires new build |
+| Expo SDK mismatch | Update or downgrade SDK version |
+
+## OTA Update Issues
+
+### Update Not Applying
+
+1. User must restart app after download completes
+2. Check update channel matches build profile
+3. Verify update was published: `eas update:list`
+
+### Update Causing Crashes
+
+```bash
+# Rollback to previous version
+eas update:list --branch production
+eas update:republish --group [previous-group-id]
+```
+
+### Users Stuck on Old Version
+
+If OTA can't recover:
+1. Push a native build update to app stores
+2. Increase version number to force users to update
+3. Add in-app prompt to update from store
+
+## Performance Issues
+
+### Slow App Launch
+
+- Reduce splash screen duration
+- Lazy load heavy components
+- Check for blocking API calls on startup
+
+### Slow Content Loading
+
+- Implement pagination for long lists
+- Add loading states
+- Cache API responses where appropriate
+
+### High Memory Usage
+
+- Use `FlatList` instead of `ScrollView` for long lists
+- Optimize images (use WebP, appropriate sizes)
+- Clean up listeners in `useEffect` cleanup functions
+
+## Development Environment
+
+### Expo Go Not Connecting
+
+```bash
+# Check network
+ping [your-local-ip]
+
+# Try tunnel mode
+npx expo start --tunnel
+```
+
+### Metro Bundler Issues
+
+```bash
+# Clear cache
+npx expo start --clear
+
+# Reset completely
+rm -rf node_modules
+rm package-lock.json
+npm install
+npx expo start --clear
+```
+
+## Getting Help
+
+### Resources
+
+- [Expo Documentation](https://docs.expo.dev/)
+- [EAS Build Documentation](https://docs.expo.dev/build/introduction/)
+- [Expo Discord](https://chat.expo.dev/)
+
+### Reporting Issues
+
+When reporting issues, include:
+
+1. Build logs or error messages
+2. `app.json` configuration
+3. Expo SDK version (`expo --version`)
+4. Platform (iOS/Android) and OS version
+5. Steps to reproduce

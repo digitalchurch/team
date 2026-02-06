@@ -1,0 +1,82 @@
+---
+sidebar_position: 2
+title: Getting Started
+---
+
+# Getting Started
+
+This guide walks through setting up a new native app for a church using our Expo-based system.
+
+## Prerequisites
+
+Before you begin, ensure you have:
+
+1. **Apple Developer Account** — Enrolled in the [Apple Developer Program](https://developer.apple.com/programs/) ($99/year)
+2. **Google Play Developer Account** — Registered on [Google Play Console](https://play.google.com/console) ($25 one-time)
+3. **EAS CLI installed** — `npm install -g eas-cli`
+4. **Access to the digitalchurch-app repo**
+
+## Step 1: WordPress Configuration
+
+The church's WordPress site controls the app configuration. Enable the native app features:
+
+1. Go to **Digital Church → Native App** in wp-admin
+2. Enable the Native App module
+3. Configure basic settings:
+   - **App Name** — The display name in app stores
+   - **Bundle ID** — Reverse domain format (e.g., `app.digitalchurch.clientname`)
+   - **Primary Color** — Used throughout the app UI
+   - **Accent Color** — Secondary brand color
+
+## Step 2: Upload App Assets
+
+Upload the required assets in **Digital Church → Native App → Branding**:
+
+| Asset | Specifications |
+|-------|----------------|
+| **App Icon** | 1024×1024 PNG, no transparency, no rounded corners (system adds them) |
+| **Splash Screen** | 1284×2778 PNG (or SVG for auto-scaling) |
+| **Adaptive Icon Foreground** | 1024×1024 PNG with safe zone for Android adaptive icons |
+
+:::tip Asset Generation
+Use a tool like [Icon Kitchen](https://icon.kitchen/) or [Figma's App Icon Template](https://www.figma.com/community/file/824894885635013369) to generate all required sizes from a single source file.
+:::
+
+## Step 3: Configure App Tabs
+
+In **Digital Church → Native App → Navigation**, configure which tabs appear:
+
+- **Home** — Landing screen with featured content
+- **Sermons** — Sermon archive with audio/video playback
+- **Events** — Upcoming events from the church calendar
+- **Groups** — Small group directory and membership
+- **Giving** — Link to online giving (opens in-app browser)
+- **More** — Additional links and settings
+
+Drag tabs to reorder. Toggle visibility for each tab.
+
+## Step 4: Create App Configuration
+
+Generate the app configuration for the Expo build:
+
+```bash
+# From the digitalchurch-app repo
+eas build:configure
+```
+
+This creates an `eas.json` file if one doesn't exist. Each client app uses environment variables to pull their specific configuration from their WordPress site.
+
+## Step 5: Build & Deploy
+
+See [Building & Deployment](./building-deployment.mdx) for detailed build instructions.
+
+## Quick Reference
+
+| Task | Where |
+|------|-------|
+| Change app name/colors | WordPress → Digital Church → Native App |
+| Update app icon | WordPress → Digital Church → Native App → Branding |
+| Configure tabs | WordPress → Digital Church → Native App → Navigation |
+| Send push notification | WordPress → Digital Church → Native App → Push Notifications |
+| Trigger a new build | EAS CLI or GitHub Actions |
+| Submit to app stores | EAS Submit or manual upload |

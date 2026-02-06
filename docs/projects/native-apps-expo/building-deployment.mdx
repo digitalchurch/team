@@ -1,0 +1,184 @@
+---
+sidebar_position: 3
+title: Building & Deployment
+---
+
+# Building & Deployment
+
+Expo Application Services (EAS) handles all builds and submissions. No local Xcode or Android Studio required for production builds.
+
+## Build Types
+
+| Build Type | Use Case | Distribution |
+|------------|----------|--------------|
+| **Development** | Local testing with Expo Go | Not distributed |
+| **Preview** | Internal testing, stakeholder review | Internal distribution / TestFlight |
+| **Production** | App store release | App Store / Google Play |
+
+## Prerequisites
+
+1. **EAS CLI** — `npm install -g eas-cli`
+2. **Logged into EAS** — `eas login`
+3. **Project configured** — `eas build:configure` (run once per project)
+
+## Development Builds
+
+For local development and testing:
+
+```bash
+# Start the development server
+npx expo start
+
+# Scan QR code with Expo Go app (iOS/Android)
+```
+
+For features requiring native code (push notifications, etc.), create a development build:
+
+```bash
+# iOS development build
+eas build --profile development --platform ios
+
+# Android development build
+eas build --profile development --platform android
+```
+
+## Preview Builds
+
+Internal distribution for testing before release:
+
+```bash
+# Build for both platforms
+eas build --profile preview --platform all
+
+# Or build individually
+eas build --profile preview --platform ios
+eas build --profile preview --platform android
+```
+
+**iOS Preview Distribution:**
+- Uses Ad Hoc provisioning
+- Requires device UDIDs registered in Apple Developer account
+- Or use TestFlight for broader internal testing
+
+**Android Preview Distribution:**
+- Generates APK for direct installation
+- No Play Store required
+- Share via link or internal distribution
+
+## Production Builds
+
+Release builds for app store submission:
+
+```bash
+# Build for both platforms
+eas build --profile production --platform all
+```
+
+### iOS Production
+
+The build will be signed with your distribution certificate and uploaded to App Store Connect automatically if configured.
+
+### Android Production
+
+The build will be signed with your upload key and formatted as an AAB (Android App Bundle) for Play Store submission.
+
+## Submitting to App Stores
+
+### Automated Submission
+
+EAS Submit can automatically upload builds to both stores:
+
+```bash
+# Submit latest iOS build to App Store Connect
+eas submit --platform ios
+
+# Submit latest Android build to Google Play
+eas submit --platform android
+
+# Submit specific build
+eas submit --platform ios --id [build-id]
+```
+
+### Manual Submission
+
+If you prefer manual submission:
+
+1. Download the build artifact from [expo.dev](https://expo.dev)
+2. **iOS:** Upload via Transporter app or `xcrun altool`
+3. **Android:** Upload AAB via Google Play Console
+
+## Environment Configuration
+
+Each client app uses environment variables to connect to their WordPress site:
+
+```bash
+# .env.local (not committed)
+EXPO_PUBLIC_API_URL=https://clientchurch.com
+EXPO_PUBLIC_APP_NAME=Client Church
+```
+
+For EAS builds, set secrets:
+
+```bash
+eas secret:create --name API_URL --value "https://clientchurch.com"
+```
+
+## Build Configuration (eas.json)
+
+```json
+{
+  "cli": {
+    "version": ">= 5.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "simulator": false
+      }
+    },
+    "production": {
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "mark.tenney@icloud.com",
+        "ascAppId": "APP_STORE_CONNECT_APP_ID",
+        "appleTeamId": "CWQ9VCV3Z6"
+      },
+      "android": {
+        "serviceAccountKeyPath": "./play-store-credentials.json",
+        "track": "internal"
+      }
+    }
+  }
+}
+```
+
+## Troubleshooting Builds
+
+### iOS Build Failures
+
+- **Provisioning profile mismatch:** Ensure bundle ID matches Apple Developer configuration
+- **Certificate expired:** Regenerate via Apple Developer portal, update EAS credentials
+
+### Android Build Failures
+
+- **Keystore issues:** EAS manages keystores by default; check `eas credentials` for status
+- **SDK version mismatch:** Update `expo-build-properties` in app.json
+
+### Check Build Logs
+
+```bash
+# View recent builds
+eas build:list
+
+# View specific build logs
+eas build:view [build-id]
+```

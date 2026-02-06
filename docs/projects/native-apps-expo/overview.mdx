@@ -1,0 +1,60 @@
+---
+sidebar_position: 1
+title: Overview
+---
+
+# Native Apps with Expo
+
+White-label native apps for churches, powered by Expo and managed from their WordPress dashboard.
+
+## How It Works
+
+The church's WordPress site becomes the app dashboard. Church admins manage their app alongside everything else in Digital Church — no separate portal needed.
+
+### Architecture
+
+Two repos are involved:
+
+| Repo | Purpose |
+|------|---------|
+| **`digitalchurch-app`** (Expo) | The native app codebase. Builds iOS and Android apps. |
+| **`digitalchurch-wordpress`** | The dashboard controls. Churches configure and manage their app from the same place they manage their website. |
+
+### What Lives Where
+
+**Expo Repo (`digitalchurch-app`):**
+- App shell and navigation
+- Native features (push notifications, offline, etc.)
+- Build and deployment pipeline via EAS
+- App Store / Play Store submission automation
+
+**WordPress Repo (App Dashboard):**
+- Push notification composer and scheduling
+- App branding (colors, logos, splash screen)
+- Tab configuration (which tabs appear, ordering, content)
+- Feature toggles
+- App content management (pulls from the same data as the website)
+
+## Key Differences from AppPresser
+
+| Feature | AppPresser (Old) | Expo (New) |
+|---------|------------------|------------|
+| App configuration | MyAppPresser.com dashboard | WordPress admin |
+| Build system | Bitrise | Expo EAS Build |
+| Certificate management | Manual upload to Bitrise | Managed by EAS (or stored in EAS Secrets) |
+| Content updates | API calls to WordPress | Same — REST API to WordPress |
+| Custom views | HTML/CSS in AppPresser dashboard | React Native components |
+| Build triggers | AppPresser dashboard | EAS CLI or GitHub Actions |
+
+## Philosophy
+
+The website is the hub. The app extends it into people's pockets. Churches shouldn't need a second admin panel to manage their app — the WordPress dashboard they already use handles it all.
+
+## Key Features
+
+- **Push notifications** — Compose and schedule from the WordPress dashboard
+- **Branding controls** — Set app colors, icons, splash screen without touching code
+- **Tab configuration** — Choose which tabs appear and what content they show
+- **Shared content** — Sermons, events, groups, giving all flow from the same source as the website
+- **White-label** — Each church gets their own branded app in the stores
+- **OTA updates** — Push JavaScript updates without app store review via EAS Update

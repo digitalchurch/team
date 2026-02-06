@@ -1,0 +1,133 @@
+---
+sidebar_position: 6
+title: Push Notifications
+---
+
+# Push Notifications
+
+Send push notifications to church members directly from the WordPress dashboard.
+
+## Overview
+
+Push notifications are managed entirely from WordPress — no need to access Firebase Console or Apple Developer portal for day-to-day operations. The app registers device tokens on install, and the WordPress backend handles delivery through Firebase Cloud Messaging (FCM) for both iOS and Android.
+
+## Sending Notifications (WordPress Dashboard)
+
+### Compose a Notification
+
+1. Go to **Digital Church → Native App → Push Notifications** in wp-admin
+2. Click **New Notification**
+3. Fill in:
+   - **Title:** Headline of the notification (50 chars recommended)
+   - **Message:** Body text (150 chars recommended for full visibility)
+   - **Link:** Optional deep link or URL to open when tapped
+4. Choose delivery:
+   - **Send Now** — Immediate delivery
+   - **Schedule** — Set date and time for future delivery
+5. Click **Send** or **Schedule**
+
+### Notification Best Practices
+
+| Do | Don't |
+|----|-------|
+| Keep titles under 50 characters | Use ALL CAPS (feels like shouting) |
+| Send at reasonable hours (9am-8pm) | Send more than 2-3 per week |
+| Include clear call-to-action | Send without a purpose |
+| Test on your own device first | Assume everyone wants every update |
+
+## Deep Linking
+
+Notifications can open specific screens in the app:
+
+| Link Type | Format | Example |
+|-----------|--------|---------|
+| Home | `/` | Opens home tab |
+| Sermon | `/sermons/[id]` | Opens specific sermon |
+| Event | `/events/[id]` | Opens event details |
+| External URL | `https://...` | Opens in-app browser |
+
+Configure deep link in the **Link** field when composing.
+
+## Technical Setup
+
+### Firebase Configuration
+
+The app uses Firebase Cloud Messaging for both platforms. Setup is done once per app:
+
+1. Create project in [Firebase Console](https://console.firebase.google.com/)
+2. Add iOS and Android apps with matching bundle IDs
+3. Download config files:
+   - `google-services.json` (Android)
+   - `GoogleService-Info.plist` (iOS)
+4. Add to Expo project or EAS secrets
+
+### iOS Push Certificate
+
+For iOS notifications, you need an APNs key:
+
+1. Go to [Apple Developer → Keys](https://developer.apple.com/account/resources/authkeys/list)
+2. Create a new key with **Apple Push Notifications service (APNs)**
+3. Download the `.p8` file
+4. Upload to Firebase Console → Project Settings → Cloud Messaging → APNs Authentication Key
+
+### WordPress Configuration
+
+Store Firebase credentials in WordPress:
+
+1. Go to **Digital Church → Native App → Settings**
+2. Enter **Firebase Server Key** (from Firebase Console → Project Settings → Cloud Messaging)
+3. Save changes
+
+## Targeting & Segments
+
+### Available Segments
+
+| Segment | Description |
+|---------|-------------|
+| All Users | Everyone with the app installed |
+| iOS Only | Apple device users |
+| Android Only | Android device users |
+| Active Users | Users who opened app in last 30 days |
+
+### Custom Topics (Future)
+
+Planned feature: Allow users to subscribe to notification topics (e.g., Youth Ministry, Worship Team) from within the app.
+
+## Notification Analytics
+
+Track notification performance in WordPress:
+
+- **Sent:** Total notifications delivered to FCM
+- **Delivered:** Confirmed deliveries (Android only)
+- **Opened:** Users who tapped the notification
+
+## Troubleshooting
+
+### Notifications Not Received
+
+| Issue | Solution |
+|-------|----------|
+| iOS device not receiving | Check APNs key is uploaded to Firebase |
+| Android not receiving | Verify `google-services.json` is correct |
+| No devices registered | User must grant notification permission in app |
+| Scheduled notification didn't send | Check WordPress cron is running |
+
+### Testing Notifications
+
+1. Install development build on your device
+2. Grant notification permission when prompted
+3. Send test notification from WordPress
+4. Check device within 30 seconds
+
+### Debug Device Registration
+
+In the app, check if the device is registered:
+
+```javascript
+import * as Notifications from 'expo-notifications';
+
+const token = await Notifications.getExpoPushTokenAsync();
+console.log('Push token:', token.data);
+```
+
+The token should appear in WordPress under **Digital Church → Native App → Devices**.
