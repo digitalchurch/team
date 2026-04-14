@@ -93,6 +93,31 @@
   padding: 1rem;
 }
 
+.linkCard {
+  display: block;
+  border: 1px solid color-mix(in srgb, var(--brand-300) 25%, var(--base-300));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--brand-300) 8%, white),
+    color-mix(in srgb, white 88%, transparent)
+  );
+  border-radius: 12px;
+  padding: 1rem;
+  color: inherit;
+  text-decoration: none !important;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.linkCard:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--brand-400) 45%, var(--base-300));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--brand-300) 16%, white),
+    color-mix(in srgb, white 92%, transparent)
+  );
+}
+
 .colorCard {
   display: grid;
   grid-template-columns: 72px 1fr;
