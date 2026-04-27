@@ -4,15 +4,21 @@
  * Generates static JSON for the dashboard page
  */
 
-import { DatabaseSync } from 'node:sqlite';
 import fs from 'fs';
 import path from 'path';
 
-// Airtable config
-const AIRTABLE_CONFIG = JSON.parse(
-  fs.readFileSync(path.join(process.env.HOME, '.clawdbot/airtable.json'), 'utf8')
-);
-const AIRTABLE_TOKEN = AIRTABLE_CONFIG.token;
+// Airtable config — try env var first (Vercel), then local file
+let AIRTABLE_TOKEN = process.env.AIRTABLE_TOKEN;
+if (!AIRTABLE_TOKEN) {
+  try {
+    const config = JSON.parse(
+      fs.readFileSync(path.join(process.env.HOME, '.clawdbot/airtable.json'), 'utf8')
+    );
+    AIRTABLE_TOKEN = config.token;
+  } catch {
+    console.warn('⚠️  No Airtable credentials found (no AIRTABLE_TOKEN env var, no ~/.clawdbot/airtable.json)');
+  }
+}
 
 // Base IDs
 const BASES = {
@@ -36,6 +42,11 @@ const TABLES = {
 };
 
 async function fetchAllRecords(baseId, tableId) {
+  if (!AIRTABLE_TOKEN) {
+    console.warn(`⚠️  Skipping ${tableId} — no Airtable token available`);
+    return [];
+  }
+
   const allRecords = [];
   let offset = null;
 
@@ -261,6 +272,20 @@ function main() {
   // Ensure output directory exists
   fs.mkdirSync(outputDir, { recursive: true });
 
+  // If no Airtable token, try to use existing kpi-data.json (for Vercel builds)
+  if (!AIRTABLE_TOKEN) {
+    try {
+      if (fs.existsSync(outputPath)) {
+        const existing = JSON.parse(fs.readFileSync(outputPath, 'utf8'));
+        console.log(`⚠️  No Airtable credentials — using existing ${outputPath}`);
+        console.log(`   Generated at: ${existing.generatedAt}`);
+        return; // Exit without overwriting
+      }
+    } catch (err) {
+      console.warn(`⚠️  Could not read existing kpi-data.json: ${err.message}`);
+    }
+  }
+
   buildKpiData()
     .then((kpis) => {
       fs.writeFileSync(outputPath, JSON.stringify(kpis, null, 2));
@@ -269,6 +294,11 @@ function main() {
     })
     .catch((err) => {
       console.error('❌ Failed to build KPI data:', err);
+      // Try to keep existing data
+      if (fs.existsSync(outputPath)) {
+        console.log(`   Keeping existing ${outputPath}`);
+        return;
+      }
       process.exit(1);
     });
 }
