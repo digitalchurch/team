@@ -1,0 +1,235 @@
+/* KPI Dashboard Styles */
+
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  min-height: calc(100vh - 120px);
+}
+
+.header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-emphasis-900);
+}
+
+.generatedAt {
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-600);
+  margin: 0;
+}
+
+.section {
+  margin-bottom: 3rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--ifm-color-emphasis-800);
+  font-weight: 600;
+}
+
+/* ─── Grid Layout ─────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* ─── KPI Card ─────────────────────────────────────────────── */
+.card {
+  background: var(--ifm-color-emphasis-0);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cardTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ifm-color-emphasis-600);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cardValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ifm-color-emphasis-900);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.cardSubtitle {
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-500);
+  margin: 0;
+}
+
+/* ─── Trend Badge ─────────────────────────────────────────── */
+.trend {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+.trend.up {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.trend.down {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.trend.neutral {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* ─── Stat Bar ──────────────────────────────────────────────── */
+.statBar {
+  margin-bottom: 1rem;
+}
+
+.statBarHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.statBarLabel {
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-700);
+  font-weight: 500;
+}
+
+.statBarValue {
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-900);
+  font-weight: 600;
+}
+
+.statBarTrack {
+  height: 8px;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.statBarFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+/* ─── Table ────────────────────────────────────────────────── */
+.tableWrapper {
+  overflow-x: auto;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  background: var(--ifm-color-emphasis-50);
+  color: var(--ifm-color-emphasis-600);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-emphasis-700);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background: var(--ifm-color-emphasis-0);
+}
+
+.numberCell {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.churnCell {
+  color: #dc2626;
+}
+
+/* ─── States ───────────────────────────────────────────────── */
+.loading,
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: var(--ifm-color-emphasis-500);
+  font-size: 1.125rem;
+}
+
+.error {
+  color: #dc2626;
+  flex-direction: column;
+  text-align: center;
+}
+
+.error h2 {
+  margin-bottom: 0.5rem;
+}
+
+/* ─── Footer ──────────────────────────────────────────────── */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  text-align: center;
+}
+
+.footer p {
+  font-size: 0.75rem;
+  color: var(--ifm-color-emphasis-400);
+  margin: 0;
+}

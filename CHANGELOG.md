@@ -4,6 +4,10 @@ All notable changes to the Digital Church team site will be documented in this f
 
 ## [Unreleased]
 
+- Add KPI dashboard page with Airtable data (build-time fetch)
+- Add build-kpi-data.mjs script for Airtable KPI extraction
+- Add KPI dashboard page component with summary cards and weekly metrics
+- Add dashboard route to navbar
 - Remove emoji from all doc category titles (10 files updated)
 - Restructure docs into new organization: design, engineering, knowledge, marketing, operations
 - Add GridPane Git Release Pruning Issue doc

@@ -68,23 +68,28 @@ const config = {
     ({
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
-      navbar: {
-        title: 'Digital Church Team',
-        logo: {
-          alt: 'Digital Church',
-          src: 'img/DigitalChurch_FullColorIcon.svg',
-        },
-        items: [
-          {
-            to: '/docs',
-            label: 'Documentation',
-            position: 'left',
+        navbar: {
+          title: 'Digital Church Team',
+          logo: {
+            alt: 'Digital Church',
+            src: 'img/DigitalChurch_FullColorIcon.svg',
           },
-          {
-            to: '/search',
-            label: 'Search',
-            position: 'left',
-          },
+          items: [
+            {
+              to: '/docs',
+              label: 'Documentation',
+              position: 'left',
+            },
+            {
+              to: '/dashboard',
+              label: 'KPIs',
+              position: 'left',
+            },
+            {
+              to: '/search',
+              label: 'Search',
+              position: 'left',
+            },
           {
             href: 'https://digitalchurch.guide',
             label: 'User Guide',
