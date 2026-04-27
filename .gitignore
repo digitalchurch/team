@@ -18,3 +18,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Generated local search index assets
+/static/search/search-index.json
+/static/search/search-index.sqlite
+/static/search/search-index.manifest.json
+/static/search/sqlite-wasm-vec/

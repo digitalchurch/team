@@ -81,6 +81,11 @@ const config = {
             position: 'left',
           },
           {
+            to: '/search',
+            label: 'Search',
+            position: 'left',
+          },
+          {
             href: 'https://digitalchurch.guide',
             label: 'User Guide',
             position: 'right',

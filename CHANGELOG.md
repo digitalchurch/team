@@ -4,6 +4,7 @@ All notable changes to the Digital Church team site will be documented in this f
 
 ## [Unreleased]
 
+- Restructure docs into new organization: design, engineering, knowledge, marketing, operations
 - Add GridPane Git Release Pruning Issue doc
 - Add Beaver Builder URL parameter password gate documentation with a builder-safe JavaScript snippet
 - Add a Documentation navbar link and route docs under `/docs`
@@ -11,6 +12,7 @@ All notable changes to the Digital Church team site will be documented in this f
 - Add a LAN-friendly local start script (`npm run start:lan`)
 - Refresh the Gravity Forms Cloudflare Turnstile setup guide
 - Update homepage layout styling and page component wiring
+- Add sqlite-vec powered local documentation search with build-time indexing and `/search` UI
 
 ## 2026-03-25
 
