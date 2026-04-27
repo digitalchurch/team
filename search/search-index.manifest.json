@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-27T21:47:28.041Z",
+  "generatedAt": "2026-04-27T21:53:32.518Z",
   "vectorDimensions": 96,
   "sourceCount": 80,
   "files": {
@@ -8,5 +8,5 @@
     "wasmModule": "sqlite-wasm-vec/index.mjs",
     "wasmDirectory": "sqlite-wasm-vec/sqlite-wasm"
   },
-  "sha256": "2bd206ab793257af477fb6293b7c2c6bcec82eb5fd628c351cfc5c5e965e4cb8"
+  "sha256": "8f902d71a59bcac6995e60ffe53a1ad0c136202449c4ab788f005ae7a08a92aa"
 }
