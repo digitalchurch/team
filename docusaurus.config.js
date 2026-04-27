@@ -41,7 +41,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          routeBasePath: '/',
+          routeBasePath: '/docs',
           sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -75,13 +75,11 @@ const config = {
           src: 'img/DigitalChurch_FullColorIcon.svg',
         },
         items: [
-          // {
-          //   type: 'docSidebar',
-          //   sidebarId: 'tutorialSidebar',
-          //   position: 'left',
-          //   label: 'Docs',
-          // },
-          // {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            to: '/docs',
+            label: 'Documentation',
+            position: 'left',
+          },
           {
             href: 'https://digitalchurch.guide',
             label: 'User Guide',
@@ -97,24 +95,7 @@ const config = {
             items: [
               {
                 label: 'Docs',
-                to: '/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                to: '/docs',
               },
             ],
           },
@@ -122,12 +103,8 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/digitalchurch/team',
               },
             ],
           },

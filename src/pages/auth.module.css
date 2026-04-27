@@ -1,0 +1,91 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  border: 1px solid var(--neutral-200);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--neutral-50) 80%, transparent);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 40px rgba(2, 6, 23, 0.12);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: var(--neutral-600);
+}
+
+.form {
+  margin-top: 24px;
+  display: grid;
+  gap: 10px;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: var(--neutral-700);
+}
+
+.input {
+  width: 100%;
+  border: 1px solid var(--neutral-300);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: color-mix(in srgb, var(--neutral-50) 92%, transparent);
+  color: var(--neutral-900);
+}
+
+.input:focus {
+  outline: 2px solid color-mix(in srgb, var(--ifm-color-primary) 35%, transparent);
+  outline-offset: 1px;
+}
+
+.submit {
+  margin-top: 8px;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error {
+  margin: 8px 0 0;
+  color: var(--danger-500);
+  font-size: 0.9rem;
+}
+
+.linkButton {
+  margin-top: 16px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--neutral-700);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width: 576px) {
+  .card {
+    padding: 24px;
+  }
+}

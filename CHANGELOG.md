@@ -5,6 +5,12 @@ All notable changes to the Digital Church team site will be documented in this f
 ## [Unreleased]
 
 - Add GridPane Git Release Pruning Issue doc
+- Add Beaver Builder URL parameter password gate documentation with a builder-safe JavaScript snippet
+- Add a Documentation navbar link and route docs under `/docs`
+- Add auth route and client-side auth utilities (`src/auth/*`, `src/pages/auth.js`, and `src/theme/Root.js`)
+- Add a LAN-friendly local start script (`npm run start:lan`)
+- Refresh the Gravity Forms Cloudflare Turnstile setup guide
+- Update homepage layout styling and page component wiring
 
 ## 2026-03-25
 
