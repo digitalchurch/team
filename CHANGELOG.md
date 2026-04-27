@@ -4,6 +4,7 @@ All notable changes to the Digital Church team site will be documented in this f
 
 ## [Unreleased]
 
+- Remove emoji from all doc category titles (10 files updated)
 - Restructure docs into new organization: design, engineering, knowledge, marketing, operations
 - Add GridPane Git Release Pruning Issue doc
 - Add Beaver Builder URL parameter password gate documentation with a builder-safe JavaScript snippet
