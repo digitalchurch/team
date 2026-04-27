@@ -1,0 +1,1 @@
+import{default as s}from"./sqlite-wasm/jswasm/sqlite3-bundler-friendly.mjs";import"./sqlite-wasm/jswasm/sqlite3-worker1-promiser.mjs";const e=globalThis.sqlite3Worker1Promiser;export default s;export{e as sqlite3Worker1Promiser};

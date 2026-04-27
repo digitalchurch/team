@@ -1,8 +1,0 @@
-{
-  "label": "Native Apps (Legacy)",
-  "position": 5,
-  "link": {
-    "type": "generated-index",
-    "description": "⚠️ LEGACY: AppPresser-based documentation. For new apps, see Native Apps (Expo)."
-  }
-}
