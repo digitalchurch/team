@@ -20,7 +20,7 @@
 }
 
 .modal {
-  background: var(--ifm-background-color);
+  background: #ffffff;
   border-radius: 16px;
   width: 100%;
   max-width: 640px;
