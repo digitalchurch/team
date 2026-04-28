@@ -91,6 +91,9 @@ export default function KpiDashboard() {
   const { summary, workspaces, servers, contacts, financials, weeklyMetrics } = data;
 
   return (
+    <Layout title="KPI Dashboard">
+      <main className={styles.main}>
+        <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Overview</h2>
           <div className={styles.grid}>
             <KpiCard
