@@ -9,6 +9,7 @@ export default function SearchModal({isOpen, onClose}) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [status, setStatus] = useState('idle');
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -21,6 +22,7 @@ export default function SearchModal({isOpen, onClose}) {
       setQuery('');
       setResults([]);
       setStatus('idle');
+      setSelectedIndex(-1);
     }
   }, [isOpen]);
 
@@ -28,9 +30,19 @@ export default function SearchModal({isOpen, onClose}) {
     (event) => {
       if (event.key === 'Escape') {
         onClose();
+      } else if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        setSelectedIndex((prev) => (prev < results.length - 1 ? prev + 1 : prev));
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : 0));
+      } else if (event.key === 'Enter' && selectedIndex >= 0 && results[selectedIndex]) {
+        event.preventDefault();
+        window.location.href = results[selectedIndex].slug;
+        onClose();
       }
     },
-    [onClose],
+    [onClose, results, selectedIndex],
   );
 
   useEffect(() => {
@@ -129,10 +141,10 @@ export default function SearchModal({isOpen, onClose}) {
         </div>
 
         <ul className={styles.results}>
-          {results.map((result) => (
+          {results.map((result, index) => (
             <li key={result.id}>
               <button
-                className={styles.resultButton}
+                className={`${styles.resultButton} ${index === selectedIndex ? styles.selected : ''}`}
                 onClick={() => handleResultClick(result.slug)}>
                 <span className={styles.resultTitle}>{result.title}</span>
                 <span className={styles.resultMeta}>{result.section}</span>
