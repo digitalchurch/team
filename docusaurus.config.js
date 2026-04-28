@@ -81,11 +81,6 @@ const config = {
               position: 'left',
             },
             {
-              to: '/',
-              label: 'KPIs',
-              position: 'left',
-            },
-            {
               to: '/search',
               label: 'Search',
               position: 'left',
