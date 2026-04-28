@@ -1,3 +1,9 @@
+---
+title: Digital Church Agents
+sidebar_position: 1
+slug: overview
+---
+
 # Digital Church HQ — Agent System
 
 A team of AI agents organized in a primary/subagent hierarchy, working together to serve Digital Church's mission.
