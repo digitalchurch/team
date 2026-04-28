@@ -4,6 +4,10 @@ All notable changes to the Digital Church team site will be documented in this f
 
 ## [Unreleased]
 
+- Add search modal with Cmd+K shortcut and keyboard navigation
+- Move KPI dashboard to homepage as main entry point
+- Increase dashboard max-width to 1440px with 24px padding
+- Fix navbar KPIs link pointing to incorrect route
 - Add KPI dashboard page with Airtable data (build-time fetch)
 - Add build-kpi-data.mjs script for Airtable KPI extraction
 - Add KPI dashboard page component with summary cards and weekly metrics
