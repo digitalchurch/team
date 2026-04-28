@@ -1,9 +1,10 @@
 /* KPI Dashboard Styles */
 
-.dashboard {
-  max-width: 1200px;
+.dashboard,
+.main {
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem 24px;
   min-height: calc(100vh - 120px);
 }
 
