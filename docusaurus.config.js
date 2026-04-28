@@ -81,8 +81,7 @@ const config = {
               position: 'left',
             },
             {
-              to: '/search',
-              label: 'Search',
+              html: '<button class="search-trigger" onclick="window.dispatchEvent(new CustomEvent(\'open-search-modal\'))">Search <kbd>⌘K</kbd></button>',
               position: 'left',
             },
           {
