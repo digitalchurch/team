@@ -81,7 +81,7 @@ const config = {
               position: 'left',
             },
             {
-              to: '/dashboard',
+              to: '/',
               label: 'KPIs',
               position: 'left',
             },
