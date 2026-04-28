@@ -67,7 +67,7 @@ export default function AuthPage() {
   }
 
   return (
-    <Layout title="Sign in" description="Sign in to access Digital Church Team docs" noNavbar noFooter>
+    <Layout title="Sign in" description="Sign in to access Digital Church Team docs" noNavbar noFooter noTOC>
       <main className={styles.page}>
         <section className={styles.card}>
           <h1 className={styles.title}>Digital Church Team</h1>
